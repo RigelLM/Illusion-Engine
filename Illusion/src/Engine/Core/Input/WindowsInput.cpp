@@ -46,6 +46,7 @@ namespace Illusion
 		glfwGetCursorPos(window, &xpos, &ypos);
 
 		return { (float)xpos, (float)ypos };
+
 	}
 
 	float WindowsInput::GetMouseXImpl()

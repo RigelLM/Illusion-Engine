@@ -19,12 +19,12 @@
 #include "Engine/Core/Window/Window.h"
 #include "Engine/ImGui/ImGuiLayer.h"
 
-#include "Engine/Renderer/Shader.h"
+#include "Engine/Render/Utils/Shader.h"
 
-#include "Engine/Renderer/Buffers.h"
-#include "Engine/Renderer/VertexArray.h"
+#include "Engine/Render/Utils/Buffers.h"
+#include "Engine/Render/Utils/VertexArray.h"
 
-#include "Engine/Renderer/Camera.h"
+#include "Engine/Render/CameraSystem/Camera.h"
 
 #include "Engine/Core/Utils/TimeStep.h"
 

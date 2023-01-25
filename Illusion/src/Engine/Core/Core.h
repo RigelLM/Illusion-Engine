@@ -17,7 +17,7 @@
 #endif
 
 #ifdef ILLUSION_ENABLE_ASSERTS
-	#define ILLUSION_CLIENTASSERT(x, ...) { if(!(x)) { ENGINE_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define ILLUSION_CLIENT_ASSERT(x, ...) { if(!(x)) { ENGINE_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define ILLUSION_CORE_ASSERT(x, ...) { if (!(x)) { ENGINE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 	#define ILLUSION_CLIENT_ASSERT(x, ...)

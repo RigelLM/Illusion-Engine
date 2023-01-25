@@ -18,12 +18,14 @@ public:
 private:
 	Illusion::CameraController m_CameraController;
 
-	// Temp
-	Illusion::Ref<Illusion::VAO> m_VAO;
-
 	Illusion::Ref<Illusion::Texture2D> m_Texture;
 
 	glm::vec4 m_Color = { 0.2f, 0.3f, 0.8f, 1.0f };
 
+	Illusion::ParticleSystem pSys;
+	Illusion::ParticleEmitter emitter;
+	Illusion::ParticleEmitter emitter2;
+	Illusion::ParticleProp prop;
+	Illusion::ParticleProp prop2;
 };
 
