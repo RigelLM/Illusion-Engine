@@ -1,6 +1,18 @@
+/*
+ * ========================== ParticleSystem.cpp ==========================
+ *								 -- ils --
+ *													   CREATE -- 2023.01.25
+ *													   MODIFY --
+ * ------------------------------------------------------------------------
+ * The ParticleSystem Class
+ * Manages all emitters
+ * ----------------------------
+ */
+
 #include "pch.h"
 #include "ParticleSystem.h"
 
+//--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
 
@@ -9,11 +21,13 @@ namespace Illusion
 
 	}
 
+	// Add emitter to the vector
 	void ParticleSystem::AddEmitter(ParticleEmitter* emitter)
 	{
 		m_Emitters.emplace_back(emitter);
 	}
 
+	// Update all emitters
 	void ParticleSystem::OnUpdate(Timestep ts)
 	{
 		for (ParticleEmitter* emitter : m_Emitters)
@@ -22,6 +36,7 @@ namespace Illusion
 		}
 	}
 
+	// Manage emitters' render events
 	void ParticleSystem::OnRender()
 	{
 		for (ParticleEmitter* emitter : m_Emitters)
@@ -30,6 +45,7 @@ namespace Illusion
 		}
 	}
 
+	// Manage emitters' render event
 	void ParticleSystem::Emit()
 	{
 		for (ParticleEmitter* emitter : m_Emitters)
@@ -38,5 +54,5 @@ namespace Illusion
 		}
 	}
 
-
+	//--------------------namespace: Illusion ends--------------------
 }

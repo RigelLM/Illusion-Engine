@@ -28,8 +28,6 @@ int main(int argc, char** argv)
 	//Initialization of the Logging system
 	Illusion::Log::Init();
 	ENGINE_CORE_WARN("--------------------Logging System Initialized--------------------");
-	int a = 5;
-	ENGINE_CLIENT_INFO("Hello! Var={0}", a);
 
 	//Creation of the Game app
 	auto app = Illusion::CreateApplication();

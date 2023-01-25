@@ -1,3 +1,13 @@
+/*
+ * ========================== ParticleEmitter.cpp ============================
+ *								  -- ils --
+ *														  CREATE -- 2023.01.25
+ *														  MODIFY --
+ * ---------------------------------------------------------------------------
+ * The ParticleEmitter Class
+ * Handles particle properties
+ * ----------------------------
+ */
 #include "pch.h"
 #include "ParticleEmitter.h"
 
@@ -8,15 +18,17 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/compatibility.hpp>
 
+ //--------------------namespace: Illusion endts--------------------
 namespace Illusion
 {
-
-
+	// Iterate through the pool from back to front
 	ParticleEmitter::ParticleEmitter()
 	{
 		m_ParticlePool.resize(1000);
 	}
 
+	// Update all particles
+	// Calculate position,, rotation and life.
 	void ParticleEmitter::OnUpdate(Timestep ts)
 	{
 		for (auto& particle : m_ParticlePool)
@@ -36,6 +48,7 @@ namespace Illusion
 		}
 	}
 
+	// Draw all particles
 	void ParticleEmitter::OnRender()
 	{
 		for (auto& particle : m_ParticlePool)
@@ -55,11 +68,13 @@ namespace Illusion
 		}
 	}
 
+	// Configure the particle properties
 	void ParticleEmitter::Configure(const ParticleProp& particleProp)
 	{
 		m_Prop = particleProp;
 	}
 
+	// Emit particles according to the particle properties and update their state
 	void ParticleEmitter::Emit()
 	{
 		Particle& particle = m_ParticlePool[m_PoolIndex];
@@ -84,4 +99,5 @@ namespace Illusion
 
 		m_PoolIndex = --m_PoolIndex % m_ParticlePool.size();
 	}
+	//--------------------namespace: Illusion ends--------------------
 }

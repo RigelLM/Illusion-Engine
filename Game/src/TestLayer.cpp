@@ -14,9 +14,12 @@ TestLayer::TestLayer()
 void TestLayer::OnAttach()
 {
 	m_Texture.reset(new Illusion::Texture2D("assets/textures/CheckerBoard.png"));
+
+	// Initialize the particle system with two emitters
 	pSys.AddEmitter(&emitter);
 	pSys.AddEmitter(&emitter2);
 
+	// Initialize the properties for each emitter
 	prop.ColorBegin = { 255 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1.0f };
 	prop.ColorEnd = { 0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1.0f };
 	prop.SizeBegin = 0.5f, prop.SizeVariation = 0.3f, prop.SizeEnd = 0.0f;
@@ -43,11 +46,13 @@ void TestLayer::OnDetach()
 
 void TestLayer::OnUpdate(Illusion::Timestep timestep)
 {
-	// Updata
+	// Update the camera
 	m_CameraController.OnUpdate(timestep);
 
+	// Update the properties for each emitter
 	if (Illusion::Input::IsMouseButtonPressed(ILLUSION_MOUSE_BUTTON_LEFT))
 	{
+		// Figure out the position of the mouse cursor
 		auto [x, y] = Illusion::Input::GetMousePosition();
 		auto width = Illusion::Application::Get().GetWindow().GetWidth();
 		auto height = Illusion::Application::Get().GetWindow().GetHeight();
@@ -58,11 +63,17 @@ void TestLayer::OnUpdate(Illusion::Timestep timestep)
 		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
 		prop.Position = { x + pos.x, y + pos.y };
 		prop2.Position = { x + pos.x + 0.8f, y + pos.y };
+
+		// Assign it to the position of the emitter
 		emitter.Configure(prop);
 		emitter2.Configure(prop2);
-		for (int i = 0; i < 5; i++)
+
+		// Emit 5 particles at once
+		//for (int i = 0; i < 5; i++)
 			pSys.Emit();
 	}
+
+	// Update the particle system
 	pSys.OnUpdate(timestep);
 
 	// Render
@@ -71,15 +82,16 @@ void TestLayer::OnUpdate(Illusion::Timestep timestep)
 	// Clear the color buffer with the clear color
 	Illusion::RenderCommand::Clear({ 0.0f, 0.0f, 0.0f, 1.0 });
 	Illusion::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	pSys.OnRender();
 	Illusion::Renderer2D::DrawQuad({ -1.0f,  0.0f }, { 0.8f, 0.8f }, m_Color);
 	Illusion::Renderer2D::DrawQuad({  0.5f, -0.5f }, { 0.5f, 0.5f }, m_Color);
 	Illusion::Renderer2D::DrawRotatedQuad({ 0.0f,  0.0f, -0.1f }, glm::radians(45.0f), { 1.0f, 1.0f }, m_Texture);
-	pSys.OnRender();
 	Illusion::Renderer2D::EndScene();
 }
 
 void TestLayer::OnImGuiRender()
 {
+	// Expose the color and lifetime of particles to ImGui
 	ImGui::Begin("Settings1");
 	ImGui::ColorEdit4("Birth Color", glm::value_ptr(prop.ColorBegin));
 	ImGui::ColorEdit4("Death Color", glm::value_ptr(prop.ColorEnd));
