@@ -59,11 +59,11 @@ namespace Illusion
 	private:
 		std::unique_ptr<Window> m_Window;
 
-		ImGuiLayer* m_ImGuiLayer;
-
 		bool m_Running = true;
 
 		bool m_Minimized = false;
+
+		ImGuiLayer* m_ImGuiLayer;
 
 		LayerStack m_LayerStack;
 

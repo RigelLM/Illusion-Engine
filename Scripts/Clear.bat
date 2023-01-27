@@ -4,6 +4,9 @@ rd /s /q bin
 rd /s /q bin-int
 del /a Project.sln
 del /a /s *.vcxproj.*
+pushd Game
+del imgui.ini
+popd
 pushd Illusion\Lib\Glad
 rd /s /q bin
 rd /s /q bin-int

@@ -22,7 +22,7 @@ namespace Illusion
 	{
 	public:
 		//Initialize the logging system
-		//Set up loggers for both engine and game application
+		//Set up loggers for both engine and application
 		static void Init();
 
 		inline static std::shared_ptr <spdlog::logger>& GetCoreLogger() { return s_CoreLogger; };

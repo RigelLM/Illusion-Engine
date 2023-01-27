@@ -48,10 +48,7 @@ namespace Illusion
 	};
 
 	//Macros used to implement GetStaticType/GetEventType/GetName/GetCategoryFlags in the inherited class
-	// 
-	// ## is used to connect EventType and type during the compilation
 	// # is used to transform type into a string
-	// 
 	// GetStaticType can be used as a static method, could be used without an object
 	// GetEventType can be used as a property method, can only be used with an instance/object
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\

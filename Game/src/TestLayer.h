@@ -27,5 +27,6 @@ private:
 	Illusion::ParticleEmitter emitter2;
 	Illusion::ParticleProp prop;
 	Illusion::ParticleProp prop2;
+
 };
 

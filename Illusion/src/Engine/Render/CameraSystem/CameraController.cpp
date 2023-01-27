@@ -76,9 +76,9 @@ namespace Illusion
 	// Dispatch the event to the callback function
 	void CameraController::OnEvent(Event& e)
 	{
-		EventDispatcher dispacther(e);
-		dispacther.Dispatch<MouseScrolledEvent>(ENGINE_BIND_EVENT_FN(CameraController::OnMouseScrolled));
-		dispacther.Dispatch<WindowResizeEvent>(ENGINE_BIND_EVENT_FN(CameraController::OnWindowResized));
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<MouseScrolledEvent>(ENGINE_BIND_EVENT_FN(CameraController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(ENGINE_BIND_EVENT_FN(CameraController::OnWindowResized));
 	}
 
 	// Callback function for mousescolled event

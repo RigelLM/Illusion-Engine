@@ -10,9 +10,6 @@
  */
 
 #pragma once
-
-#ifdef ILLUSION_PLATFORM_WINDOWS
-
 //The Creation function of the application should be implement by the user themselves
 //Since we don't know what they will call their apps and what they will do with their apps
 //There cannot be a uniform implementation of the creation function
@@ -40,5 +37,3 @@ int main(int argc, char** argv)
 
 	return 0;
 }
-
-#endif // ILLUSION_PLATFORM_WINDOWS

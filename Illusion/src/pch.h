@@ -31,7 +31,5 @@
 
 
 #include "Engine/Core/Log/Log.h"
-//--------------------Platform Specific Libraries--------------------
-#ifdef ILLUSION_PLATFORM_WINDOWS
-	#include <Windows.h>
-#endif // ILLUSION_PLATFORM_WINDOWS
+
+#include <Windows.h>

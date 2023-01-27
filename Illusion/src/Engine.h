@@ -13,10 +13,11 @@
 
 // For use in applications
 #include "Engine/Core/Application/Application.h"
-#include "Engine/Core/Layer/Layer.h"
 #include "Engine/Core/Log/Log.h"
+#include "Engine/Core/Layer/Layer.h"
 
 #include "Engine/Core/Utils/Timestep.h"
+#include "Engine/Core/Utils/Timer.h"
 
 #include "Engine/Core/Input/Input.h"
 
