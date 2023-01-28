@@ -12,9 +12,9 @@ namespace Illusion
 
 	}
 
-	void Timer::SetTime(float time)
+	void Timer::SetTime(float stoptime)
 	{
-		m_StopTime = time;
+		m_StopTime = stoptime;
 	}
 
 	void Timer::Start()

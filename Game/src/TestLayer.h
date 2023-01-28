@@ -20,6 +20,8 @@ private:
 
 	Illusion::Ref<Illusion::Texture2D> m_Texture;
 
+	Illusion::Ref<Illusion::SequenceAnimation> m_Animation;
+
 	glm::vec4 m_Color = { 0.2f, 0.3f, 0.8f, 1.0f };
 
 	Illusion::ParticleSystem pSys;

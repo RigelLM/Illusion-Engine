@@ -40,3 +40,5 @@
 #include "Engine/Render/Utils/Texture.h"
 
 #include "Engine/Render/ParticleSystem/ParticleSystem.h"
+
+#include "Engine/Render/Animation/SequenceAnimation.h"

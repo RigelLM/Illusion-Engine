@@ -14,6 +14,7 @@ TestLayer::TestLayer()
 void TestLayer::OnAttach()
 {
 	m_Texture.reset(new Illusion::Texture2D("assets/textures/CheckerBoard.png"));
+	m_Animation.reset(new Illusion::SequenceAnimation(60, "assets/animations", "FlightMode"));
 
 	// Initialize the particle system with two emitters
 	pSys.AddEmitter(&emitter);
@@ -46,7 +47,6 @@ void TestLayer::OnDetach()
 
 void TestLayer::OnUpdate(Illusion::Timestep timestep)
 {
-
 	// Update the camera
 	m_CameraController.OnUpdate(timestep);
 
@@ -87,6 +87,7 @@ void TestLayer::OnUpdate(Illusion::Timestep timestep)
 	Illusion::Renderer2D::DrawQuad({ -1.0f,  0.0f }, { 0.8f, 0.8f }, m_Color);
 	Illusion::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.5f }, m_Color);
 	Illusion::Renderer2D::DrawRotatedQuad({ 0.0f,  0.0f, -0.1f }, glm::radians(45.0f), { 1.0f, 1.0f }, m_Texture);
+	m_Animation->Play();
 	Illusion::Renderer2D::EndScene();
 }
 

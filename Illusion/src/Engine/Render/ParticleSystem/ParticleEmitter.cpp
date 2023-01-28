@@ -61,7 +61,7 @@ namespace Illusion
 			glm::vec4 color = glm::lerp(particle.ColorEnd, particle.ColorBegin, life);
 			//color.a = color.a * life;
 
-			float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life) * particle.Scale;
+			float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life) * particle.Scale;  
 
 			// Render
 			Renderer2D::DrawRotatedQuad(particle.Position, particle.Rotation, { size, size }, color);
