@@ -18,6 +18,8 @@ IncludeDir["Glad"] = "Illusion/Lib/Glad/include"
 IncludeDir["ImGui"] = "Illusion/Lib/imgui"
 IncludeDir["glm"] = "Illusion/Lib/glm"
 IncludeDir["stb_image"] = "Illusion/Lib/stb_image"
+IncludeDir["IrrKlang"] = "Illusion/Lib/IrrKlang/include"
+
 
 include "Illusion/Lib/GLFW"
 include "Illusion/Lib/Glad"
@@ -59,7 +61,8 @@ project "Illusion"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.IrrKlang}"
 	}
 
 	links 
@@ -67,7 +70,8 @@ project "Illusion"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"Illusion/Lib/IrrKlang/Lib/irrKlang.lib"
 	}
 
 	filter "system:windows"
@@ -76,7 +80,6 @@ project "Illusion"
 		defines
 		{
 			"ILLUSION_PLATFORM_WINDOWS",
-			"ILLUSION_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 

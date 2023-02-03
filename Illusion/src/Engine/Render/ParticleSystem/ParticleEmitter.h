@@ -15,7 +15,7 @@
 
 #include "Engine/Core/Utils/Timestep.h"
 
-//--------------------namespace: Illusion starts--------------------
+ //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
 	// Holds all properties a particle has
@@ -24,7 +24,8 @@ namespace Illusion
 		glm::vec2 Position;
 		glm::vec2 Velocity, VelocityVariation;
 		glm::vec4 ColorBegin, ColorEnd;
-		float Scale, SizeBegin, SizeEnd, SizeVariation;
+		float Scale = 1.0f;
+		float SizeBegin, SizeEnd, SizeVariation;
 		float LifeTime = 1.0f;
 	};
 
@@ -35,7 +36,7 @@ namespace Illusion
 	public:
 
 		ParticleEmitter();
-		
+
 		// Update all the particles after they are emitted
 		// Calculate position,, rotation and life
 		void OnUpdate(Timestep ts);

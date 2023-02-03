@@ -19,11 +19,12 @@ namespace Illusion
 		}
 	}
 
-	void SequenceAnimation::Play()
+	void SequenceAnimation::Play(glm::vec3 loc)
 	{
-		Illusion::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.244f, 1.036f }, m_Frames[(int)m_CurrentFrame]);
+		Illusion::Renderer2D::DrawQuad(loc, { 2* 1.19f, 2 * 1.05f }, m_Frames[(int)m_CurrentFrame]);
 
-		m_CurrentFrame = m_CurrentFrame + 0.5;
+		/*m_CurrentFrame = m_CurrentFrame + 16.0f / 60.0f;*/
+		m_CurrentFrame++;
 		if ((uint32_t)m_CurrentFrame == m_FrameCount)
 		{
 			m_CurrentFrame = 0.0f;

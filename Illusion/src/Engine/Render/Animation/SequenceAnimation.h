@@ -2,6 +2,8 @@
 
 #include "Engine/Render/Utils/Texture.h"
 
+#include <glm/glm.hpp>
+
 namespace Illusion
 {
 	class SequenceAnimation
@@ -12,7 +14,7 @@ namespace Illusion
 		SequenceAnimation(uint32_t framecount, const std::string& filepath, const std::string& name);
 		~SequenceAnimation(){}
 
-		void Play();
+		void Play(glm::vec3 loc);
 
 
 	private:
