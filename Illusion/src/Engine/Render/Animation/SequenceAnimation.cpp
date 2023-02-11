@@ -6,7 +6,7 @@
 namespace Illusion
 {
 	SequenceAnimation::SequenceAnimation(uint32_t framecount, const std::string& folderpath, const std::string& name)
-		:m_FrameCount(framecount),m_CurrentFrame(0.0f), m_FolderPath(folderpath), m_Name(name)
+		:m_FrameCount(framecount), m_CurrentFrame(0.0f), m_FolderPath(folderpath), m_Name(name), m_End(false)
 	{
 		char filepath[256];
 		for (int i = 0; i < m_FrameCount; i++)
@@ -19,15 +19,38 @@ namespace Illusion
 		}
 	}
 
-	void SequenceAnimation::Play(glm::vec3 loc)
+	void SequenceAnimation::Play(glm::vec3 loc, glm::vec2 size, float time, bool once)
 	{
-		Illusion::Renderer2D::DrawQuad(loc, { 2* 1.19f, 2 * 1.05f }, m_Frames[(int)m_CurrentFrame]);
+		float step = (m_FrameCount / time) / 60;
+		Illusion::Renderer2D::DrawQuad(loc, size, m_Frames[(int)m_CurrentFrame]);
 
 		/*m_CurrentFrame = m_CurrentFrame + 16.0f / 60.0f;*/
-		m_CurrentFrame++;
+		m_CurrentFrame += step;
+		if (!once)
+		{
+			if ((uint32_t)m_CurrentFrame == m_FrameCount)
+				m_CurrentFrame = 0.0f;
+		}
+		else
+		{
+			if ((uint32_t)m_CurrentFrame == m_FrameCount)
+			{
+				m_CurrentFrame = m_FrameCount - 1;
+				m_End = true;
+			}
+		}
+	}
+
+	void SequenceAnimation::Play(glm::vec3 loc, glm::vec2 size, float time)
+	{
+		float step = (m_FrameCount / time) / 60;
+		Illusion::Renderer2D::DrawUIQuad(loc, size, m_Frames[(int)m_CurrentFrame]);
+
+		m_CurrentFrame += step;
 		if ((uint32_t)m_CurrentFrame == m_FrameCount)
 		{
-			m_CurrentFrame = 0.0f;
+			m_CurrentFrame = m_FrameCount - 1;
+			m_End = true;
 		}
 	}
 }

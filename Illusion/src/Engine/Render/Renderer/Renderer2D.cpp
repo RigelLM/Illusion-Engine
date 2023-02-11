@@ -61,8 +61,11 @@ namespace Illusion
 
 		// Create the shader program
 		ResourceManager::LoadShader("assets/shaders/TextureShader.glsl", "TextureShader");
+		ResourceManager::LoadShader("assets/shaders/UIShader.glsl", "UIShader");
 		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformInt("u_Texture", 0);
+		ResourceManager::GetShader("UIShader")->Bind();
+		ResourceManager::GetShader("UIShader")->UploadUniformInt("u_Texture", 0);
 	}
 
 	void Renderer2D::Shutdown()
@@ -88,6 +91,7 @@ namespace Illusion
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformBool("u_UseTexture", false);
 
 		ResourceManager::GetShader("TextureShader")->UploadUniformFloat4("u_Color", color);
@@ -106,12 +110,27 @@ namespace Illusion
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformBool("u_UseTexture", true);
 
 		texture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 		ResourceManager::GetShader("TextureShader")->UploadUniformMat4("u_Transform", transform);
+
+		s_Data->vao->Bind();
+		RenderCommand::DrawIndexed(s_Data->vao);
+	}
+
+	void Renderer2D::DrawUIQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
+	{
+		ResourceManager::GetShader("UIShader")->Bind();
+		ResourceManager::GetShader("UIShader")->UploadUniformBool("u_UseTexture", true);
+
+		texture->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		ResourceManager::GetShader("UIShader")->UploadUniformMat4("u_Transform", transform);
 
 		s_Data->vao->Bind();
 		RenderCommand::DrawIndexed(s_Data->vao);
@@ -124,6 +143,7 @@ namespace Illusion
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const float rotation, const glm::vec2& size, const glm::vec4& color)
 	{
+		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformBool("u_UseTexture", false);
 
 		ResourceManager::GetShader("TextureShader")->UploadUniformFloat4("u_Color", color);
@@ -147,6 +167,7 @@ namespace Illusion
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const float rotation, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformBool("u_UseTexture", true);
 
 		texture->Bind();

@@ -14,8 +14,10 @@ namespace Illusion
 		SequenceAnimation(uint32_t framecount, const std::string& filepath, const std::string& name);
 		~SequenceAnimation(){}
 
-		void Play(glm::vec3 loc);
+		void Play(glm::vec3 loc, glm::vec2 size, float time, bool once);
+		void Play(glm::vec3 loc, glm::vec2 size, float time);
 
+		const bool Check() { return m_End; }
 
 	private:
 
@@ -27,6 +29,8 @@ namespace Illusion
 		std::string m_Name;
 
 		std::vector<Ref<Texture2D>> m_Frames;
+
+		bool m_End = false;
 	};
 
 }

@@ -5,9 +5,9 @@
 
 namespace Illusion
 {
-  
+
 	Timer::Timer(float stoptime)
-		:m_StartTime(0.0f),m_CurrentTime(0.0f), m_StopTime(stoptime), m_RunningTime(0.0f)
+		:m_StartTime(0.0f), m_CurrentTime(0.0f), m_StopTime(stoptime), m_RunningTime(0.0f)
 	{
 
 	}
@@ -25,14 +25,17 @@ namespace Illusion
 
 	void Timer::Update()
 	{
-		m_CurrentTime = (float)glfwGetTime();
-		m_RunningTime = m_CurrentTime - m_StartTime;
-		if (m_RunningTime > m_StopTime)
+		if (!m_IsStoped)
 		{
-			m_IsStoped = true;
+			m_CurrentTime = (float)glfwGetTime();
+			m_RunningTime = m_CurrentTime - m_StartTime;
+			if (m_RunningTime > m_StopTime)
+			{
+				m_IsStoped = true;
+			}
 		}
 	}
-	
+
 	bool Timer::Check()
 	{
 		return m_IsStoped;
