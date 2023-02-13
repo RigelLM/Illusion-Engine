@@ -27,6 +27,13 @@ namespace Illusion
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
+	VBO::VBO(uint32_t size)
+	{
+		glCreateBuffers(1, &m_VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	VBO::~VBO()
 	{
 		glDeleteBuffers(1, &m_VBO);
@@ -40,6 +47,12 @@ namespace Illusion
 	void VBO::Unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void VBO::SendData(const void* data, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
 	//--------------------Index Buffer---------------------

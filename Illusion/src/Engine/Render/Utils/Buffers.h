@@ -134,6 +134,7 @@ namespace Illusion
 	{
 	public:
 		VBO(float* vertices, uint32_t size);
+		VBO(uint32_t size);
 
 		~VBO();
 
@@ -142,6 +143,8 @@ namespace Illusion
 		void Unbind() const;
 
 		void SetDataLayout(const VBODataLayout& layout) { m_Layout = layout; }
+
+		void SendData(const void* data, uint32_t size = 0);
 
 		const VBODataLayout& GetDataLayout() const { return m_Layout; }
 

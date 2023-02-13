@@ -1,19 +1,21 @@
 /*
- * ===================== WindowsWindow.cpp ========================
+ * ===================== Window.cpp ========================
  *                         -- ils --
  *                                         CREATE -- 2023.01.12
  *                                         MODIFY --
  * ------------------------------------------------------------
- * The WindowsWindow class for Windows platform
+ * The Window class for Windows platform
  * ----------------------------
  */
 
 #include "pch.h"
-#include "WindowsWindow.h"
+#include "Window.h"
 
 #include "Engine/Event/AppEvent.h"
 #include "Engine/Event/MouseEvent.h"
 #include "Engine/Event/KeyEvent.h"
+
+#include <glad/glad.h>
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
@@ -27,27 +29,27 @@ namespace Illusion
 		ENGINE_CORE_ERROR("GLFW ERROR ({0}): {1}", error, description);
 	}
 
-	// Create the Window for the program
-	Window* Window::CreateIllusionWindow(const WindowProps& props)
-	{
-		return new WindowsWindow(props);
-	}
+	//// Create the Window for the program
+	//Window* Window::CreateIllusionWindow(const WindowProps& props)
+	//{
+	//	return new Window(props);
+	//}
 
-	// The constructor of the WindowsWindow class
+	// The constructor of the Window class
 	// Initialize the properties of the window
-	WindowsWindow::WindowsWindow(const WindowProps& props)
+	Window::Window(const WindowProps& props)
 	{
 		Init(props);
 	}
 
-	// The destructor of the WindowsWindow class
-	WindowsWindow::~WindowsWindow()
+	// The destructor of the Window class
+	Window::~Window()
 	{
 		Shutdown();
 	}
 
 	// Initialization of the properties of the window
-	void WindowsWindow::Init(const WindowProps& props)
+	void Window::Init(const WindowProps& props)
 	{
 		// Unpack the data input
 		// Store all the data that window maintains
@@ -70,9 +72,19 @@ namespace Illusion
 
 		// Create the window with the data that the window maintains
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		
-		m_Context = new GraphicContext(m_Window);
-		m_Context->Init();
+
+		// Set up the graphic context
+		glfwMakeContextCurrent(m_Window);
+
+		// Check if glad has been initialized
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		ILLUSION_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		// Log the OpenGL information to the console
+		ENGINE_CORE_INFO("OpenGL Info:");
+		ENGINE_CORE_INFO("  Vendor\t: {0}", glGetString(GL_VENDOR));
+		ENGINE_CORE_INFO("  Renderer\t: {0}", glGetString(GL_RENDERER));
+		ENGINE_CORE_INFO("  Version\t: {0}", glGetString(GL_VERSION));
 
 		// The user pointer could be used to store whatever you what
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -170,20 +182,21 @@ namespace Illusion
 
 	}
 
-	void WindowsWindow::Shutdown()
+	void Window::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
 	}
 
-	void WindowsWindow::OnUpdate()
+	void Window::OnUpdate()
 	{
 		// Everytime it is updataed, process the event in the queue
 		glfwPollEvents();
 
-		m_Context->SwapBuffers();
+		//m_Context->SwapBuffers();
+		glfwSwapBuffers(m_Window);
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void Window::SetVSync(bool enabled)
 	{
 		if (enabled)
 			glfwSwapInterval(1);
@@ -193,7 +206,7 @@ namespace Illusion
 		m_Data.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsSync() const
+	bool Window::IsSync() const
 	{
 		return m_Data.VSync;
 	}

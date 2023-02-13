@@ -119,12 +119,15 @@ project "Game"
 		"Illusion/Lib/spdlog/include",
 		"Illusion/src",
 		"Illusion/Lib",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.IrrKlang}",
+		"%{IncludeDir.GLFW}"
 	}
 
 	links
 	{
-		"Illusion"
+		"Illusion",
+		"Illusion/Lib/IrrKlang/Lib/irrKlang.lib"
 	}
 
 	filter "system:windows"

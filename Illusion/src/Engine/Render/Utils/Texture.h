@@ -27,13 +27,15 @@ namespace Illusion
 
 		virtual void Bind(uint32_t slot) const = 0;
 		virtual void Unbind() const = 0;
+
+		virtual bool operator==(const Texture& other) const = 0;
 	};
 
 	// The Texture2D Class which would be used in application
 	class Texture2D : public Texture
 	{
-	public: 
-		
+	public:
+
 		// Generate the 2D texture from the source file
 		Texture2D(const std::string& path);
 		// Generate the 2D texture in GPU
@@ -49,6 +51,11 @@ namespace Illusion
 		// Bind the texture to the texture unit
 		void Bind(uint32_t slot = 0) const override;
 		void Unbind() const override;
+
+		bool operator==(const Texture& other) const override
+		{
+			return m_RendererID == ((Texture2D&)other).m_RendererID;
+		}
 
 	private:
 

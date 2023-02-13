@@ -1,23 +1,23 @@
+
 /*
- * ======================= Window.h ===========================
- *						  -- ils --
+ * ===================== Window.h ========================
+ *                         -- ils --
  *                                         CREATE -- 2023.01.12
  *                                         MODIFY --
  * ------------------------------------------------------------
- * The abstract Window class for all platforms
+ * The Window class for Windows platform
  * ----------------------------
  */
 #pragma once
 
-#include "pch.h"
-
 #include "Engine/Core/Core.h"
 #include "Engine/Event/Events.h"
+
+#include <GLFW/glfw3.h>
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
-	// The Window properties
 	struct WindowProps
 	{
 		std::string Title;
@@ -31,7 +31,7 @@ namespace Illusion
 			: Title(title), Width(width), Height(height) {}
 	};
 
-	// The abstact class Window for all platforms
+	// Window Class
 	class Window
 	{
 	public:
@@ -39,22 +39,46 @@ namespace Illusion
 		// Input: Event&
 		// Output: void
 		using EventCallbackFn = std::function<void(Event&)>;
-		virtual ~Window() {}
 
-		virtual void OnUpdate() = 0;
+		Window(const WindowProps& props = WindowProps());
+		virtual ~Window();
 
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		void OnUpdate();
 
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
-		virtual void SetVSync(bool enabled) = 0;
-		virtual bool IsSync() const = 0;
+		inline unsigned int GetWidth() const { return m_Data.Width; }
+		inline unsigned int GetHeight() const { return m_Data.Height; }
+
+		// Set the overall event callback function
+		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+		void SetVSync(bool enabled);
+		bool IsSync() const;
 
 		// Expose the m_Window
-		virtual void* GetNativeWindow() const = 0;
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 
-		static Window* CreateIllusionWindow(const WindowProps& props = WindowProps());
+	private:
+		// Initialize the window properties
+		virtual void Init(const WindowProps& props);
+
+		// Shut the window down
+		virtual void Shutdown();
+
+	private:
+		GLFWwindow* m_Window;
+		
+		// Store all the data that a window maintains
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width, Height;
+			bool VSync;
+
+			EventCallbackFn EventCallback;
+		};
+
+		WindowData m_Data;
+
 	};
-
 	//--------------------namespace: Illusion ends--------------------
 }
+

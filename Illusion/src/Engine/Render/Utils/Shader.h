@@ -38,6 +38,7 @@ namespace Illusion
 		void UploadUniformFloat3(const std::string& name, const glm::vec3& value);
 		void UploadUniformFloat4(const std::string& name, const glm::vec4& value);
 		void UploadUniformInt(const std::string& name, const int value);
+		void UploadUniformIntArray(const std::string& name, const int* value, const uint32_t count);
 		void UploadUniformBool(const std::string& name, const bool value);
 		void UploadUniformFloat(const std::string& name, const float value);
 

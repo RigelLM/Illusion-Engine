@@ -17,7 +17,7 @@
 #include "Engine/Render/Renderer/Renderer.h"
 #include "Engine/Core/Log/Log.h"
 
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
@@ -30,7 +30,8 @@ namespace Illusion
 		s_Instance = this;
 
 		// Create a window
-		m_Window = std::unique_ptr<Window>(Window::CreateIllusionWindow());
+		m_Window.reset(new Window());
+		//m_Window = std::make_unique<Window>(new Window());
 
 		// Bind OnEvent as a overall callback function glfw
 		// The program would call OnEvent whenever there's an event

@@ -35,9 +35,10 @@ namespace Illusion
 	}
 
 	// Draw stuffs with VBO and IBO
-	void RenderCommand::DrawIndexed(const Ref<VAO>& vao)
+	void RenderCommand::DrawIndexed(const Ref<VAO>& vao, uint32_t indexCount)
 	{
-		glDrawElements(GL_TRIANGLES, vao->GetIBO()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = indexCount ? vao->GetIBO()->GetCount() : indexCount;
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
 
 

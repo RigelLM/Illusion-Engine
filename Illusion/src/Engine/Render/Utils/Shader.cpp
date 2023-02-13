@@ -183,6 +183,10 @@ namespace Illusion
 	{
 		glUniform1i(glGetUniformLocation(m_Program, name.c_str()), value);
 	}
+	void Shader::UploadUniformIntArray(const std::string& name, const int* values, const uint32_t count)
+	{
+		glUniform1iv(glGetUniformLocation(m_Program, name.c_str()), count, values);
+	}
 	void Shader::UploadUniformBool(const std::string& name, const bool value)
 	{
 		glUniform1i(glGetUniformLocation(m_Program, name.c_str()), value);
