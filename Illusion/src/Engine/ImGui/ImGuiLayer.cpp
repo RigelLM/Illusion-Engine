@@ -2,15 +2,15 @@
  * ======================= ImGuiLayer.h ===========================
  *						     -- ils --
  *												CREATE -- 2023.01.13
- *												MODIFY --
+ *												MODIFY -- 2023.02.14  
  * ----------------------------------------------------------------
  * The ImGuiLayer Class that stores all the render logic 
  * for the overlay layer
  * ----------------------------
  */
 
-
 #include "pch.h"
+
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
@@ -19,25 +19,16 @@
 
 #include "Engine/Core/Application/Application.h"
 
-// Temp
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
-
-
 //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
 
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer")
-	{
-		
-	}
+	{ }
 
 	ImGuiLayer::~ImGuiLayer()
-	{
-
-	}
+	{ }
 
 	// Call when it is put into the layerstack
 	void ImGuiLayer::OnAttach()
@@ -54,7 +45,8 @@ namespace Illusion
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		
 		// Set up ImGui Style
-		ImGui::StyleColorsDark();
+		ImGui::StyleColorsLight();
+		//ImGui::StyleColorsDark();
 
 		// When viewports are enabled, tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -86,7 +78,6 @@ namespace Illusion
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
 	}
 
 	void ImGuiLayer::End()
@@ -112,6 +103,5 @@ namespace Illusion
 	{
 		static bool show = true;
 		//ImGui::ShowDemoWindow(&show);
-
 	}
 }//--------------------namespace: Illusion ends--------------------

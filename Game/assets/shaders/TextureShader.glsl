@@ -2,19 +2,22 @@
 #version 330 core
 
 layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec2 a_TextCord;
+layout(location = 1) in vec4 a_Color;
+layout(location = 2) in vec2 a_TextCord;
+layout(location = 3) in float a_TexIndex;
 
 uniform mat4 u_ViewProjection;
-uniform mat4 u_Transform;
 
 out vec2 v_TextCord;
-out vec2 v_ScreenPos;
+out vec4 v_Color;
+out float v_TexIndex;
 
 void main()
 {
 	v_TextCord = a_TextCord;
-	gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-	v_ScreenPos = gl_Position.xy;
+	v_Color = a_Color;
+	v_TexIndex = a_TexIndex;
+	gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 }
 
 
@@ -24,23 +27,14 @@ void main()
 layout(location = 0) out vec4 color;
 
 in vec2 v_TextCord;
-in vec2 v_ScreenPos;
+in vec4 v_Color;
+in float v_TexIndex;
 
-uniform vec4 u_Color;
-uniform sampler2D u_Texture;
-uniform bool u_UseTexture;
+uniform sampler2D u_Texture[32];
 			
 void main()
 {
-	if (u_UseTexture)
-	{
-		float dist = 1.0f - distance(v_ScreenPos * 0.8f, vec2(0.0f));
-		dist = clamp(dist, 0.0f, 1.0f);
-		color = texture(u_Texture, v_TextCord) * dist;
-	}
-	else
-	{
-		color = u_Color;
-	}
-	
+	int i = int(v_TexIndex);
+
+	color = texture(u_Texture[i], v_TextCord) * v_Color;
 }

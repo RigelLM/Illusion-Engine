@@ -85,7 +85,7 @@ namespace Illusion
 
 	void Texture2D::SetData(const void* data, uint32_t size)
 	{
-		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_INT, data);
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 
 

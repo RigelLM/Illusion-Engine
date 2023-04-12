@@ -13,10 +13,6 @@
 
 #include "Engine/Core/Layer/Layer.h"
 
-#include "Engine/Event/AppEvent.h"
-#include "Engine/Event/KeyEvent.h"
-#include "Engine/Event/MouseEvent.h"
-
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
@@ -24,7 +20,6 @@ namespace Illusion
 	class ImGuiLayer : public Layer
 	{
 	public:
-
 		ImGuiLayer();
 		~ImGuiLayer();
 
@@ -38,12 +33,7 @@ namespace Illusion
 		void Begin();
 
 		void End();
-
-	private:
-
 	};
-
-
 	//--------------------namespace: Illusion ends--------------------
 }
 

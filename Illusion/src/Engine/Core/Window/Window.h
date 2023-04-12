@@ -1,4 +1,3 @@
-
 /*
  * ===================== Window.h ========================
  *                         -- ils --
@@ -41,7 +40,7 @@ namespace Illusion
 		using EventCallbackFn = std::function<void(Event&)>;
 
 		Window(const WindowProps& props = WindowProps());
-		virtual ~Window();
+		~Window();
 
 		void OnUpdate();
 
