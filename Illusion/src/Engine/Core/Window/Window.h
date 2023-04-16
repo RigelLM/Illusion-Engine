@@ -53,7 +53,7 @@ namespace Illusion
 		bool IsSync() const;
 
 		// Expose the m_Window
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+		inline virtual GLFWwindow* GetNativeWindow() const { return m_Window; }
 
 	private:
 		// Initialize the window properties
