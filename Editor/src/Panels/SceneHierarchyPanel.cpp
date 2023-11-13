@@ -88,7 +88,7 @@ namespace Illusion
 
 		if (entity.HasComponent<CameraComponent>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera2D"))
+			if (ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
 			{
 				auto& cc = entity.GetComponent<CameraComponent>();
 				auto& c = cc.camera;
@@ -143,6 +143,17 @@ namespace Illusion
 					if (ImGui::DragFloat("Far", &orthoFar))
 						c.SetOrthoFar(orthoFar);
 				}
+
+				ImGui::TreePop();
+			}
+		}
+
+		if (entity.HasComponent<SpriteComponent>())
+		{
+			if (ImGui::TreeNodeEx((void*)typeid(SpriteComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Sprite"))
+			{
+				auto& sc = entity.GetComponent<SpriteComponent>();
+				ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
 
 				ImGui::TreePop();
 			}
