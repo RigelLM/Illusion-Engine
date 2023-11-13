@@ -28,11 +28,18 @@ namespace Illusion
 		// Call when it is taken out from the layerstack
 		virtual void OnDetach() override;
 
+		virtual void OnEvent(Event& event) override;
+
 		virtual void OnImGuiRender() override;
 
 		void Begin();
 
 		void End();
+
+		void BlockEvents(bool block) { m_BlockEvents = block; }
+
+	private:
+		bool m_BlockEvents = true;
 	};
 	//--------------------namespace: Illusion ends--------------------
 }

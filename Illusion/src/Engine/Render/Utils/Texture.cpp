@@ -27,42 +27,44 @@ namespace Illusion
 		// Reverse the texture so the stbi axis directions would max with opengl axis directions
 		stbi_set_flip_vertically_on_load(1);
 
-		// Read the texture from the file
-		stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
-		ILLUSION_CORE_ASSERT(data, "Failed to load texture !");
-		m_Width = width;
-		m_Height = height;
+		if (path != "test") {
+			// Read the texture from the file
+			stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
+			ILLUSION_CORE_ASSERT(data, "Failed to load texture !");
+			m_Width = width;
+			m_Height = height;
 
-		GLenum internalFormat = 0, dataFormat = 0;
-		// Check whether the texture support alpha channel
-		if (channels == 4)
-		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGBA;
+			GLenum internalFormat = 0, dataFormat = 0;
+			// Check whether the texture support alpha channel
+			if (channels == 4)
+			{
+				internalFormat = GL_RGBA8;
+				dataFormat = GL_RGBA;
+			}
+			else if (channels == 3)
+			{
+				internalFormat = GL_RGB8;
+				dataFormat = GL_RGB;
+			}
+
+			ILLUSION_CORE_ASSERT(internalFormat & dataFormat, "Format do not support!");
+
+			// Create the teture
+			glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
+			glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
+
+			// Set the filter mode of the texture when it is scaled
+			glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+			glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+			glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
+
+			// Free the data when it is no longer used
+			stbi_image_free(data);
 		}
-		else if(channels == 3)
-		{
-			internalFormat = GL_RGB8;
-			dataFormat = GL_RGB;
-		}
-
-		ILLUSION_CORE_ASSERT(internalFormat & dataFormat, "Format do not support!");
-
-		// Create the teture
-		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
-		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
-
-		// Set the filter mode of the texture when it is scaled
-		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
-
-		// Free the data when it is no longer used
-		stbi_image_free(data);
 	}
 
 	// Generate the 2D texture in GPU

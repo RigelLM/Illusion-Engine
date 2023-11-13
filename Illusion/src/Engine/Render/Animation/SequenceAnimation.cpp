@@ -9,7 +9,7 @@ namespace Illusion
 		:m_FrameCount(framecount), m_CurrentFrame(0.0f), m_FolderPath(folderpath), m_Name(name), m_End(false)
 	{
 		char filepath[256];
-		for (int i = 0; i < m_FrameCount; i++)
+		for (uint32_t i = 0; i < m_FrameCount; i++)
 		{
 			memset(filepath, 0, 256);
 			sprintf(filepath, "%s/%s (%d).png", m_FolderPath.c_str(), m_Name.c_str(), i + 1);
@@ -35,7 +35,7 @@ namespace Illusion
 		{
 			if ((uint32_t)m_CurrentFrame == m_FrameCount)
 			{
-				m_CurrentFrame = m_FrameCount - 1;
+				m_CurrentFrame = (float)(m_FrameCount - 1);
 				m_End = true;
 			}
 		}
@@ -49,7 +49,7 @@ namespace Illusion
 		m_CurrentFrame += step;
 		if ((uint32_t)m_CurrentFrame == m_FrameCount)
 		{
-			m_CurrentFrame = m_FrameCount - 1;
+			m_CurrentFrame = (float)(m_FrameCount - 1);
 			m_End = true;
 		}
 	}

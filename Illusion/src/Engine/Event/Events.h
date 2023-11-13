@@ -76,7 +76,7 @@ namespace Illusion
 		virtual std::string ToString() const { return GetName(); }
 
 		// Check whether the input is in certain category
-		inline bool IsInCategory(EventCategory category)
+		bool IsInCategory(EventCategory category)
 		{
 			// GetCategoryFlags returns flags Such as 10000/01000/00001
 			// category usually used as EventCategoryMouseButton | EventCategoryMouse | EventCategoryInput

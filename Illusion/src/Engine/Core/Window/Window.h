@@ -25,8 +25,8 @@ namespace Illusion
 
 		// Constrctor for the struct WindowProps
 		WindowProps(const std::string& title = "Illusion Engine",
-			unsigned int width = 1280,
-			unsigned int height = 720)
+			unsigned int width = 800,
+			unsigned int height = 600)
 			: Title(title), Width(width), Height(height) {}
 	};
 
@@ -44,16 +44,16 @@ namespace Illusion
 
 		void OnUpdate();
 
-		inline unsigned int GetWidth() const { return m_Data.Width; }
-		inline unsigned int GetHeight() const { return m_Data.Height; }
+		unsigned int GetWidth() const { return m_Data.Width; }
+		unsigned int GetHeight() const { return m_Data.Height; }
 
 		// Set the overall event callback function
-		inline void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
+		void SetEventCallback(const EventCallbackFn& callback) { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled);
 		bool IsSync() const;
 
 		// Expose the m_Window
-		inline virtual GLFWwindow* GetNativeWindow() const { return m_Window; }
+		virtual GLFWwindow* GetNativeWindow() const { return m_Window; }
 
 	private:
 		// Initialize the window properties

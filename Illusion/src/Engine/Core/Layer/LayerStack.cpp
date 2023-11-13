@@ -13,11 +13,6 @@
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
-	// Initialize the LayerStack
-	LayerStack::LayerStack()
-	{
-	}
-
 	// Delete all the layers and layerstack
 	LayerStack::~LayerStack()
 	{

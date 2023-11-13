@@ -1,6 +1,6 @@
 workspace "Project"
 	architecture "x64"
-	startproject "Game"
+	startproject "Editor"
 
 	configurations
 	{
@@ -18,12 +18,14 @@ IncludeDir["Glad"] = "Illusion/Lib/Glad/include"
 IncludeDir["ImGui"] = "Illusion/Lib/imgui"
 IncludeDir["glm"] = "Illusion/Lib/glm"
 IncludeDir["stb_image"] = "Illusion/Lib/stb_image"
-IncludeDir["IrrKlang"] = "Illusion/Lib/IrrKlang/include"
+IncludeDir["EnTT"] = "Illusion/Lib/EnTT/include"
+IncludeDir["Json"] = "Illusion/Lib/nlohmann/include"
 
-
-include "Illusion/Lib/GLFW"
-include "Illusion/Lib/Glad"
-include "Illusion/Lib/imgui"
+group "Dependencies"
+	include "Illusion/Lib/GLFW"
+	include "Illusion/Lib/Glad"
+	include "Illusion/Lib/imgui"
+group ""
 
 project "Illusion"
 	location "Illusion"
@@ -62,7 +64,8 @@ project "Illusion"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.IrrKlang}"
+		"%{IncludeDir.EnTT}",
+		"%{IncludeDir.Json}"
 	}
 
 	links 
@@ -70,8 +73,7 @@ project "Illusion"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib",
-		"Illusion/Lib/IrrKlang/Lib/irrKlang.lib"
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -120,14 +122,67 @@ project "Game"
 		"Illusion/src",
 		"Illusion/Lib",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.IrrKlang}",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.EnTT}"
 	}
 
 	links
 	{
-		"Illusion",
-		"Illusion/Lib/IrrKlang/Lib/irrKlang.lib"
+		"Illusion"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"ILLUSION_PLATFORM_WINDOWS"
+		}
+
+	filter "configurations:Debug"
+		defines "ILLUSION_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "ILLUSION_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "ILLUSION_DIST"
+		runtime "Release"
+		optimize "on"
+
+project "Editor"
+	location "Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Illusion/Lib/spdlog/include",
+		"Illusion/src",
+		"Illusion/Lib",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.EnTT}"
+	}
+
+	links
+	{
+		"Illusion"
 	}
 
 	filter "system:windows"

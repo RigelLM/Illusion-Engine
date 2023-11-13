@@ -12,7 +12,7 @@
 
 #include "Shader.h"
 
-#include "Engine/Core/Resource/FileReader.h"
+#include "Engine/Core/Utils/Resource/FileReader.h"
 
 #include <glad/glad.h>
 

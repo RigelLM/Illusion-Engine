@@ -24,6 +24,7 @@ namespace Illusion
 
 		glEnable(GL_DEPTH_TEST);
 
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	// Set the clear color and clear the color buffer with it
@@ -37,7 +38,7 @@ namespace Illusion
 	// Draw stuffs with VBO and IBO
 	void RenderCommand::DrawIndexed(const Ref<VAO>& vao, uint32_t indexCount)
 	{
-		uint32_t count = indexCount ? vao->GetIBO()->GetCount() : indexCount;
+		uint32_t count = indexCount ? indexCount: vao->GetIBO()->GetCount();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
 
@@ -46,7 +47,6 @@ namespace Illusion
 	{
 		glViewport(x, y, width, height);
 	}
-
 
 	//--------------------namespace: Illusion ends--------------------
 }

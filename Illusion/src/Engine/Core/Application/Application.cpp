@@ -13,7 +13,8 @@
 #include "pch.h"
 #include "Application.h"
 
-#include "Engine/Render/Renderer/Renderer.h"
+#include "Engine/Render/Renderer/Renderer2D.h"
+#include "Engine/Render/Renderer/RenderCommand.h"
 #include "Engine/Core/Log/Log.h"
 
  //--------------------namespace: Illusion starts--------------------
@@ -27,13 +28,14 @@ namespace Illusion
 		s_Instance = this;
 
 		// Create a window
-		m_Window.reset(new Window());
+		m_Window.reset(new Window(WindowProps("Illusion Editor", 800, 600)));
 
 		// Bind OnEvent as a overall callback function glfw
 		// The program would call OnEvent whenever there's an event
 		m_Window->SetEventCallback(ENGINE_BIND_EVENT_FN(Application::OnEvent));
 
-		Renderer::Init();
+		// Renderer::Init();
+		Renderer2D::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -41,7 +43,8 @@ namespace Illusion
 
 	Application::~Application()
 	{
-
+		// Renderer::Shutdown();
+		Renderer2D::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -68,9 +71,9 @@ namespace Illusion
 		dispatcher.Dispatch<WindowCloseEvent>(ENGINE_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(ENGINE_BIND_EVENT_FN(Application::OnWindowResize));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
-			(*(--it))->OnEvent(event);
+			(*it)->OnEvent(event);
 			if (event.m_Handled)
 				break;
 		}
@@ -93,7 +96,8 @@ namespace Illusion
 		}
 		m_Minimized = false;
 
-		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+		// Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+		Renderer2D::OnWindowResize(event.GetWidth(), event.GetHeight());
 
 		return false;
 	}

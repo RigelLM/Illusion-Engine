@@ -33,6 +33,9 @@ namespace Illusion {
 		case Illusion::VertexDataType::Int4:		return GL_INT;
 		case Illusion::VertexDataType::Bool:		return GL_BOOL;
 		}
+
+		ILLUSION_CORE_ASSERT(false, "Unknown Shader Data Type!");
+		return 0;
 	}
 
 	// Constructor
@@ -70,15 +73,49 @@ namespace Illusion {
 		const auto& layout = VBO->GetDataLayout();
 		for (const auto& vertexdata : layout)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(
-				index,
-				vertexdata.GetComponentCount(),
-				VertexDataTypetoOpenGLBaseType(vertexdata.Type),
-				vertexdata.Normalized,
-				layout.GetStride(),
-				(const void*)vertexdata.Offset);
-			index++;
+			switch (vertexdata.Type)
+			{
+			case VertexDataType::Float:
+			case VertexDataType::Float2:
+			case VertexDataType::Float3:
+			case VertexDataType::Float4:
+			case VertexDataType::Int:
+			case VertexDataType::Int2:
+			case VertexDataType::Int3:
+			case VertexDataType::Int4:
+			case VertexDataType::Bool:
+			{
+				glEnableVertexAttribArray(index);
+				glVertexAttribPointer(index,
+					vertexdata.GetComponentCount(),
+					VertexDataTypetoOpenGLBaseType(vertexdata.Type),
+					vertexdata.Normalized ? GL_TRUE : GL_FALSE,
+					layout.GetStride(),
+					(const void*)vertexdata.Offset);
+				index++;
+				break;
+			}
+			case VertexDataType::Mat3:
+			case VertexDataType::Mat4:
+			{
+				uint8_t count = vertexdata.GetComponentCount();
+				for (uint8_t i = 0; i < count; i++)
+				{
+					glEnableVertexAttribArray(index);
+					glVertexAttribPointer(index,
+						count,
+						VertexDataTypetoOpenGLBaseType(vertexdata.Type),
+						vertexdata.Normalized ? GL_TRUE : GL_FALSE,
+						layout.GetStride(),
+						(const void*)(sizeof(float) * count * i));
+					glVertexAttribDivisor(index, 1);
+					index++;
+				}
+				break;
+			}
+			default:
+				ILLUSION_CORE_ASSERT(false, "Unknown Shader Data Type!");
+			}
 		}
 
 		m_VBOs.push_back(VBO);

@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Events.h"
+#include "Engine/Core/Input/KeyCode.h"
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
@@ -18,7 +19,7 @@ namespace Illusion
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		// Bint it with EventCategoryKeyboard and EventCategoryInput
 		// Implements this function:
@@ -27,20 +28,20 @@ namespace Illusion
 
 	protected:
 		// Bind it with a certain key
-		KeyEvent(int keycode)
+		KeyEvent(const KeyCode keycode)
 			: m_KeyCode(keycode) {}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	// Keypressed Event
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
+		KeyPressedEvent(const KeyCode keycode, int repeatCount)
 			:KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		int GetRepeatCount() const { return m_RepeatCount; }
 
 		std::string ToString() const override
 		{
@@ -63,7 +64,7 @@ namespace Illusion
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(const KeyCode keycode)
 			: KeyEvent(keycode) {}
 
 
@@ -87,7 +88,7 @@ namespace Illusion
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
+		KeyTypedEvent(const KeyCode keycode)
 			:KeyEvent(keycode) {}
 
 		std::string ToString() const override

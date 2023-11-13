@@ -5,7 +5,7 @@
  *                                         MODIFY --
  * ------------------------------------------------------------
  * The buffer classes
- * VBO and IBO
+ * VBO, IBO, FBO, and RBO
  * ----------------------------
  */
 
@@ -17,7 +17,7 @@ namespace Illusion
 	// Type of the vertex data
 	enum class VertexDataType
 	{
-		None = 0,
+		None= 0,
 		Float, Float2, Float3, Float4,
 		Mat3, Mat4,
 		Int, Int2, Int3, Int4,
@@ -51,11 +51,11 @@ namespace Illusion
 	{
 		std::string Name;
 		VertexDataType Type;
-		uint32_t Offset;
+		size_t Offset;
 		uint32_t Size;
 		bool Normalized;
 
-		VertexData() {}
+		VertexData() = default;
 
 		VertexData(VertexDataType type, const std::string& name, bool normalized = false)
 			:Name(name), Type(type), Size(VertexDataTypeSize(type)), Offset(0), Normalized(normalized)
@@ -71,8 +71,8 @@ namespace Illusion
 				case VertexDataType::Float2:		return 2;
 				case VertexDataType::Float3:		return 3;
 				case VertexDataType::Float4:		return 4;
-				case VertexDataType::Mat3:			return 3 * 3;
-				case VertexDataType::Mat4:			return 4 * 4;
+				case VertexDataType::Mat3:			return 3; // 3 * float3
+				case VertexDataType::Mat4:			return 4; // 4 * float4
 				case VertexDataType::Int:			return 1;
 				case VertexDataType::Int2:			return 2;
 				case VertexDataType::Int3:			return 3;
@@ -91,7 +91,7 @@ namespace Illusion
 	{
 	public:
 
-		VBODataLayout() {}
+		VBODataLayout() = default;
 
 		VBODataLayout(const std::initializer_list<VertexData>& vbodata)
 			: m_VBOData(vbodata)
@@ -99,8 +99,8 @@ namespace Illusion
 			CalculateOffsetAndStride();
 		}
 
-		inline uint32_t GetStride() const { return m_Stride; }
-		inline std::vector<VertexData> GetVertexData() const { return m_VBOData; }
+		uint32_t GetStride() const { return m_Stride; }
+		std::vector<VertexData> GetVertexData() const { return m_VBOData; }
 
 		// Discard temporarily
 		//std::vector<VertexData>::iterator begin() { return m_VBOData.begin(); }
@@ -112,7 +112,7 @@ namespace Illusion
 		// Get the offset and stride for each vertex data
 		void CalculateOffsetAndStride()
 		{
-			uint32_t offset = 0;
+			size_t offset = 0;
 			m_Stride = 0;
 			for (auto& vertexdata : m_VBOData)
 			{
@@ -174,6 +174,33 @@ namespace Illusion
 		uint32_t m_IBO;
 
 		uint32_t m_Count;
+
+	};
+
+	//--------------------Frame Buffer---------------------
+	//------------------------ FBO ------------------------
+	class FBO
+	{
+	public:
+		FBO(uint32_t width, uint32_t height);
+
+		~FBO();
+
+		void Bind() const;
+
+		void Unbind() const;
+
+		uint32_t GetColorAttachment() const { return m_ColorAttachment; }
+
+		void Resize(uint32_t width, uint32_t height);
+
+	private:
+		uint32_t m_FBO;
+
+		uint32_t m_ColorAttachment;
+		uint32_t m_DepthAttachment;
+
+		uint32_t m_Width, m_Height;
 
 	};
 

@@ -16,12 +16,7 @@
  //--------------------Entry point for the application--------------------
 #include <Engine/Core/EntryPoint.h>
 
-#include "TestLayer.h"
-
-#include "imgui/imgui.h"
-
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "GameLayer.h"
 
 class Game : public Illusion::Application
 {
@@ -29,8 +24,7 @@ class Game : public Illusion::Application
 public:
 	Game()
 	{
-		//PushLayer(new GameLayer());
-		PushLayer(new TestLayer());
+		PushLayer(new GameLayer());
 	}
 
 	~Game() {}

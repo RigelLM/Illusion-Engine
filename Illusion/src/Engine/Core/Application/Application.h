@@ -28,7 +28,7 @@
 
 #include "Engine/Core/Utils/TimeStep.h"
 
-
+int main(int argc, char** argv);
 //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
@@ -38,19 +38,23 @@ namespace Illusion
 		Application();
 		virtual ~Application();
 
-		//The function where application actually starts
-		void Run();
-
 		// Overall callback function
 		void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		inline Window& GetWindow() { return *m_Window; };
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
-		inline static Application& Get() { return *s_Instance; };
+		Window& GetWindow() { return *m_Window; };
+
+		static Application& Get() { return *s_Instance; };
+
+		static bool* GetRunningStatus() { return &s_Instance->m_Running; }
 	private:
+		//The function where application actually starts
+		void Run();
+
 		// Callback function that close the window
 		bool OnWindowClose(WindowCloseEvent& event);
 
@@ -72,6 +76,8 @@ namespace Illusion
 	private:
 		static Application* s_Instance;
 
+	private:
+		friend int ::main(int argc, char** argv);
 	};
 
 	//The Creation function of the application

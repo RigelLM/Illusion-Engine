@@ -29,12 +29,6 @@ namespace Illusion
 		ENGINE_CORE_ERROR("GLFW ERROR ({0}): {1}", error, description);
 	}
 
-	//// Create the Window for the program
-	//Window* Window::CreateIllusionWindow(const WindowProps& props)
-	//{
-	//	return new Window(props);
-	//}
-
 	// The constructor of the Window class
 	// Initialize the properties of the window
 	Window::Window(const WindowProps& props)
@@ -64,7 +58,7 @@ namespace Illusion
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			ILLUSION_CORE_ASSERT(success, "Could not intialize GLFW!");
+			ILLUSION_CORE_ASSERT(success, "Could not initialize GLFW!");
 			// Set up the error callback function
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
@@ -121,7 +115,7 @@ namespace Illusion
 					data.EventCallback(event);
 					break;
 				}
-				case  GLFW_RELEASE:
+				case GLFW_RELEASE:
 				{
 					KeyReleasedEvent event(key);
 					data.EventCallback(event);

@@ -24,9 +24,11 @@ namespace Illusion
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
+		virtual uint32_t GetRendererID() const = 0;
 
 		virtual void Bind(uint32_t slot) const = 0;
 		virtual void Unbind() const = 0;
+
 
 		virtual bool operator==(const Texture& other) const = 0;
 	};
@@ -47,6 +49,7 @@ namespace Illusion
 
 		uint32_t GetWidth() const override { return m_Width; }
 		uint32_t GetHeight() const override { return m_Height; }
+		uint32_t GetRendererID() const override { return m_RendererID; }
 
 		// Bind the texture to the texture unit
 		void Bind(uint32_t slot = 0) const override;
