@@ -30,6 +30,8 @@ Currently in active development, the project is being worked on during my spare 
 
 Visual Studio 2019 or 2022 is recommended, as Illusion is officially untested on other development environments while being focused on a Windows build.
 
+<ins>**1. Downloading the repository:**</ins>
+
 Start by cloning the repository with the following command:
 
 ```bash
