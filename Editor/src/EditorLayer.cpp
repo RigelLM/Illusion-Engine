@@ -6,6 +6,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "CameraScript.h"
+#include "Tracker.h"
+
+#include "StringDataComponent.h"
 
 namespace Illusion
 {
@@ -17,45 +20,24 @@ namespace Illusion
 
 	void EditorLayer::OnAttach()
 	{
-		// m_CheckBoard.reset(new Texture2D("assets/textures/CheckerBoard.png"));
-		// m_SpriteSheet.reset(new Texture2D("assets/textures/SpriteSheet.png"));
-		//m_TextureTree = SubTexture::CreateFromCoords(m_SpriteSheet, { 2 , 1 }, { 128 , 128 }, { 1 , 2 });
 		m_FBO.reset(new FBO(800, 600));
-		
+
 		m_ActiveScene = CreateRef<Scene>();
 
 		m_SqureEntity = m_ActiveScene->CreateEntity("Square");
 		m_SqureEntity.AddComponent<SpriteComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
+		m_Logger = m_ActiveScene->CreateEntity("Tracker");
+		m_Logger.AddComponent<StringDataComponent>();
+		m_Logger.AddComponent<NativeScriptComponent>().Bind<Logger>();
+
 		m_EditorCamera = m_ActiveScene->CreateEntity("Editor Camera");
 		m_EditorCamera.AddComponent<CameraComponent>();
 		m_EditorCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
-		//// Initialize the particle system with two emitters
-		//pSys.AddEmitter(&emitter);
-		//pSys.AddEmitter(&emitter2);
-
-		//// Initialize the properties for each emitter
-		//prop.ColorBegin = { 255 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1.0f };
-		//prop.ColorEnd = { 0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1.0f };
-		//prop.SizeBegin = 0.5f, prop.SizeVariation = 0.3f, prop.SizeEnd = 0.0f;
-		//prop.LifeTime = 1.0f;
-		//prop.Velocity = { 0.0f, 0.0f };
-		//prop.VelocityVariation = { 1.0f, 1.0f };
-		//prop.Position = { 0.0f, 0.0f };
-		//prop.Scale = 0.2f;
-
-		//prop2.ColorBegin = { 254 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1.0f };
-		//prop2.ColorEnd = { 0 / 255.0f, 0 / 255.0f, 255 / 255.0f, 1.0f };
-		//prop2.SizeBegin = 0.5f, prop2.SizeVariation = 0.3f, prop2.SizeEnd = 0.0f;
-		//prop2.LifeTime = 1.0f;
-		//prop2.Velocity = { 0.0f, 0.0f };
-		//prop2.VelocityVariation = { 1.0f, 1.0f };
-		//prop2.Position = { 0.0f, 0.0f };
-		//prop2.Scale = 0.5f;
-
 		// Panels
 		m_SceneHierachyPanel.SetContext(m_ActiveScene);
+		m_LogPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnDetach()
@@ -65,41 +47,7 @@ namespace Illusion
 
 	void EditorLayer::OnUpdate(Timestep timestep)
 	{
-		// Update the camera
-		// if(m_ViewportHovered)
-			//m_CameraController.OnUpdate(timestep);
-
-		//// Update the properties for each emitter
-		//if (Input::IsMouseButtonPressed(ILLUSION_MOUSE_BUTTON_LEFT))
-		//{
-		//	// Figure out the position of the mouse cursor
-		//	auto [x, y] = Input::GetMousePosition();
-		//	auto width = Application::Get().GetWindow().GetWidth();
-		//	auto height = Application::Get().GetWindow().GetHeight();
-
-		//	auto bounds = m_CameraController.GetBounds();
-		//	auto pos = m_CameraController.GetCamera().GetPosition();
-		//	x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
-		//	y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
-		//	prop.Position = { x + pos.x, y + pos.y };
-		//	prop2.Position = { x + pos.x + 0.8f, y + pos.y };
-
-		//	// Assign it to the position of the emitter
-		//	emitter.Configure(prop);
-		//	emitter2.Configure(prop2);
-
-		//	// Emit 5 particles at once
-		//	//for (int i = 0; i < 5; i++)
-		//	pSys.Emit();
-		//}
-
-		//// Update the particle system
-		//pSys.OnUpdate(timestep);
-
-		// Render
-
-		// Set the clear color
-		// Clear the color buffer with the clear color
+		m_LogPanel.OnUpdate();
 
 		m_FBO->Bind();
 
@@ -186,22 +134,13 @@ namespace Illusion
 		// Panels
 
 		m_SceneHierachyPanel.OnImGuiRender();
-
-		ImGui::Begin("Settings");
-		ImGui::Separator();
-		auto tag = m_SqureEntity.GetComponent<TagComponent>().Tag;
-		ImGui::Text("%s", tag.c_str());
-		auto& squareColor = m_SqureEntity.GetComponent<SpriteComponent>().Color;
-		ImGui::ColorEdit3("Square Color", glm::value_ptr(squareColor));
-		ImGui::Separator();
-		ImGui::End();
-
+		m_LogPanel.OnImGuiRender();
+		
 		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_ActiveScene->OnEvent(e);
-		//m_CameraController.OnEvent(event);
 	}
 }

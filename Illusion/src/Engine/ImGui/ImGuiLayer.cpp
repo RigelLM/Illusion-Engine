@@ -45,8 +45,8 @@ namespace Illusion
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		
 		// Set up ImGui Style
-		ImGui::StyleColorsLight();
-		//ImGui::StyleColorsDark();
+		//ImGui::StyleColorsLight();
+		ImGui::StyleColorsDark();
 
 		// When viewports are enabled, tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -111,7 +111,7 @@ namespace Illusion
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		// static bool show = true;
-		// ImGui::ShowDemoWindow(&show);
+		 /*static bool show = true;
+		 ImGui::ShowDemoWindow(&show);*/
 	}
 }//--------------------namespace: Illusion ends--------------------
