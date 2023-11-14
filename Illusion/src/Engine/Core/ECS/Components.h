@@ -23,28 +23,25 @@ namespace Illusion
 
 	struct TransformComponent
 	{
-		// Transform matrix:
-		// 
-		// a11 a12 a13 a14
-		// a21 a22 a23 a24
-		// a31 a32 a33 a34
-		// 0	0	0	1
-
-		// (a14, a24, a34) is position (x, y, z)
-
-		// | a11 a12 a13 |
-		// | a21 a22 a23 |
-		// | a31 a32 a33 | is rotations, scalings/reﬂections and shears
-
-		glm::mat4 Transform{ 1.0f };
+		glm::vec3 Position = { 0.0f,0.0f,0.0f };
+		glm::vec3 Rotation = { 0.0f,0.0f,0.0f };
+		glm::vec3 Scale = { 1.0f,1.0f,1.0f };
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
-		TransformComponent(const glm::mat4& transform)
-			:Transform(transform) {}
+		TransformComponent(const glm::vec3& position)
+			:Position(position) {}
 
-		operator glm::mat4& () { return Transform; }
-		operator const glm::mat4& () const { return Transform; }
+		glm::mat4 GetTransform() const
+		{
+			glm::mat4 translation = glm::translate(glm::mat4(1.0f), Position);
+			glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), Rotation.x, { 1.0f, 0.0f, 0.0f })
+				* glm::rotate(glm::mat4(1.0f), Rotation.y, { 0.0f, 1.0f, 0.0f })
+				* glm::rotate(glm::mat4(1.0f), Rotation.z, { 0.0f, 0.0f, 1.0f });
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), Scale);
+
+			return translation * rotation * scale;
+		}
 
 	};
 

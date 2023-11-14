@@ -12,19 +12,19 @@ public:
 	void OnUpdate(Illusion::Timestep ts)
 	{
 		auto& cam = GetComponent<Illusion::CameraComponent>().camera;
-		auto& transform = GetComponent<Illusion::TransformComponent>().Transform;
+		auto& position = GetComponent<Illusion::TransformComponent>().Position;
 
 		float speed = 5.0f;
 		if (Illusion::Input::IsKeyPressed(Illusion::Key::Left))
-			transform[3][0] -= speed * ts;
+			position.x -= speed * ts;
 		else if (Illusion::Input::IsKeyPressed(Illusion::Key::Right))
-			transform[3][0] += speed * ts;
+			position.x += speed * ts;
 		if (Illusion::Input::IsKeyPressed(Illusion::Key::Up))
-			transform[3][1] += speed * ts;
+			position.y += speed * ts;
 		else if (Illusion::Input::IsKeyPressed(Illusion::Key::Down))
-			transform[3][1] -= speed * ts;
+			position.y -= speed * ts;
 
-		cam.SetPosition(transform[3]);
+		cam.SetPosition(position);
 	}
 
 	void OnEvent(Illusion::Event& e)
