@@ -46,6 +46,8 @@ namespace Illusion {
 		Ref<IBO> m_IBO;
 
 		uint32_t m_VAO;
+
+		uint32_t m_VBOIndexOffset = 0;
 	};
 	//--------------------namespace: Illusion ends--------------------
 }

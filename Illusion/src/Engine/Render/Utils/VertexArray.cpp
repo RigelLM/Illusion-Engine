@@ -85,8 +85,8 @@ namespace Illusion {
 			case VertexDataType::Int4:
 			case VertexDataType::Bool:
 			{
-				glEnableVertexAttribArray(index);
-				glVertexAttribPointer(index,
+				glEnableVertexAttribArray(index + m_VBOIndexOffset);
+				glVertexAttribPointer(index + m_VBOIndexOffset,
 					vertexdata.GetComponentCount(),
 					VertexDataTypetoOpenGLBaseType(vertexdata.Type),
 					vertexdata.Normalized ? GL_TRUE : GL_FALSE,
@@ -101,8 +101,8 @@ namespace Illusion {
 				uint8_t count = vertexdata.GetComponentCount();
 				for (uint8_t i = 0; i < count; i++)
 				{
-					glEnableVertexAttribArray(index);
-					glVertexAttribPointer(index,
+					glEnableVertexAttribArray(index + m_VBOIndexOffset);
+					glVertexAttribPointer(index + m_VBOIndexOffset,
 						count,
 						VertexDataTypetoOpenGLBaseType(vertexdata.Type),
 						vertexdata.Normalized ? GL_TRUE : GL_FALSE,
@@ -119,6 +119,7 @@ namespace Illusion {
 		}
 
 		m_VBOs.push_back(VBO);
+		m_VBOIndexOffset += (uint32_t)layout.GetVertexData().size();
 	}
 
 	// Add IBO to VAO
