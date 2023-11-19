@@ -38,7 +38,7 @@ Start by cloning the repository with the following command:
 git clone https://github.com/RigelLM/Illusion-Engine.git
 ```
 
-<ins>**2. Configuring the proeject:**</ins>
+<ins>**2. Configuring the project:**</ins>
 
 1. Run the **GenProjects.bat** file found in the **Scripts** folder. This will automatically generate the appropriate solution files based on the Visual Studio version installed on the user's computer for their use.
 2. That's it! You can run the **Project.sln** file generated in the **Illusion-Engine** folder to view the code.
