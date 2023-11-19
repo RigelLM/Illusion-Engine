@@ -4,8 +4,8 @@
 #include <Engine/Render/Renderer/Renderer2D.h>
 
 #include "Entity.h"
-#include "Components.h"
 
+#include "Components.h"
 
 namespace Illusion
 {
@@ -28,6 +28,11 @@ namespace Illusion
 		tag.Tag = name.empty() ? "Entity" : name;
 
 		return entity;
+	}
+
+	void Scene::DestroyEntity(Entity entity)
+	{
+		m_Registry.destroy(entity);
 	}
 
 	void Scene::OnUpdate(Timestep ts)
@@ -72,10 +77,10 @@ namespace Illusion
 		{
 			Illusion::Renderer2D::BeginScene(*vp);
 
-			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteComponent>);
-			for (auto entity : group)
+			auto view = m_Registry.view<TransformComponent, SpriteComponent>();
+			for (auto entity : view)
 			{
-				auto& [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
+				auto [transform, sprite] = view.get<TransformComponent, SpriteComponent>(entity);
 				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
 			}
 
@@ -109,6 +114,7 @@ namespace Illusion
 	bool Scene::OnWindowResized(WindowResizeEvent& e)
 	{
 		float ratio = (float)e.GetWidth() / (float)e.GetHeight();
+		// m_AspectRatio = ratio;
 		auto view = m_Registry.view<CameraComponent>();
 		for (auto entity : view)
 		{
@@ -117,4 +123,5 @@ namespace Illusion
 		}
 		return false;
 	}
+
 }

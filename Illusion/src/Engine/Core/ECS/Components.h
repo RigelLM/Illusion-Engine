@@ -87,6 +87,9 @@ namespace Illusion
 		bool Primary = true;
 
 		CameraComponent() = default;
+		CameraComponent(float aspectRatio)
+			:camera(aspectRatio)
+		{}
 		CameraComponent(const CameraComponent&) = default;
 	};
 }

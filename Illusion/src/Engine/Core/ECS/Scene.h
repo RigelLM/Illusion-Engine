@@ -5,7 +5,6 @@
 #include <Engine/Event/AppEvent.h>
 #include "Engine/Core/Utils/Timestep.h"
 
-
 namespace Illusion
 {
 	class Entity;
@@ -18,12 +17,13 @@ namespace Illusion
 
 		Entity CreateEntity(const std::string& name = std::string());
 
+		void DestroyEntity(Entity entity);
+
 		void OnUpdate(Timestep ts);
 
 		void OnEvent(Event& event);
 
 	private:
-
 		bool OnWindowResized(WindowResizeEvent& e);
 
 	private:
