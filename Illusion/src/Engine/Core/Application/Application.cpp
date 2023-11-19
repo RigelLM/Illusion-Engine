@@ -14,7 +14,6 @@
 #include "Application.h"
 
 #include "Engine/Render/Renderer/Renderer2D.h"
-#include "Engine/Render/Renderer/RenderCommand.h"
 #include "Engine/Core/Log/Log.h"
 
  //--------------------namespace: Illusion starts--------------------
@@ -34,7 +33,6 @@ namespace Illusion
 		// The program would call OnEvent whenever there's an event
 		m_Window->SetEventCallback(ENGINE_BIND_EVENT_FN(Application::OnEvent));
 
-		// Renderer::Init();
 		Renderer2D::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
@@ -43,7 +41,6 @@ namespace Illusion
 
 	Application::~Application()
 	{
-		// Renderer::Shutdown();
 		Renderer2D::Shutdown();
 	}
 
@@ -79,29 +76,6 @@ namespace Illusion
 		}
 	}
 
-	// The callback function to close the window
-	bool Application::OnWindowClose(WindowCloseEvent& event)
-	{
-		m_Running = false;
-		return true;
-	}
-
-	// The callback function to resize the window
-	bool Application::OnWindowResize(WindowResizeEvent& event)
-	{
-		if (event.GetWidth() == 0 || event.GetHeight() == 0)
-		{
-			m_Minimized = true;
-			return false;
-		}
-		m_Minimized = false;
-
-		// Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
-		Renderer2D::OnWindowResize(event.GetWidth(), event.GetHeight());
-
-		return false;
-	}
-
 	//The function where the app actually starts
 	void Application::Run()
 	{
@@ -127,6 +101,28 @@ namespace Illusion
 			// Update everything
 			m_Window->OnUpdate();
 		}
+	}
+
+	// The callback function to close the window
+	bool Application::OnWindowClose(WindowCloseEvent& event)
+	{
+		m_Running = false;
+		return true;
+	}
+
+	// The callback function to resize the window
+	bool Application::OnWindowResize(WindowResizeEvent& event)
+	{
+		if (event.GetWidth() == 0 || event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+
+		Renderer2D::OnWindowResize(event.GetWidth(), event.GetHeight());
+
+		return false;
 	}
 	//--------------------namespace: Illusion ends--------------------
 }
