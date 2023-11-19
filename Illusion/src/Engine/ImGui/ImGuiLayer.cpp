@@ -44,6 +44,11 @@ namespace Illusion
 		// Enable Multi_Viewports
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		
+		// Set the default fonts for imgui
+		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/static/OpenSans-Bold.ttf", 20.0f);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Recursive/static/Recursive_Monospace-Regular.ttf", 20.0f);
+		io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/static/OpenSans-Regular.ttf", 20.0f);
+
 		// Set up ImGui Style
 		//ImGui::StyleColorsLight();
 		ImGui::StyleColorsDark();

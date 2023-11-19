@@ -60,6 +60,9 @@ namespace Illusion
 
 	void LogPanel::OnImGuiRender()
 	{
+		ImGuiIO& io = ImGui::GetIO();
+		auto mono = io.Fonts->Fonts[1];
+
 		ImGui::Begin("Log");
 
 		if (ImGui::Button("Clear")) Clear();
@@ -69,6 +72,8 @@ namespace Illusion
 		ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
+
+		ImGui::PushFont(mono);
 		const char* buf = Buf.begin();
 		const char* buf_end = Buf.end();
 		if (Filter.IsActive())
@@ -96,6 +101,8 @@ namespace Illusion
 			}
 			clipper.End();
 		}
+		ImGui::PopFont();
+
 		ImGui::PopStyleVar();
 
 		if (ScrollToBottom)
