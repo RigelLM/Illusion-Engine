@@ -16,7 +16,6 @@ namespace Illusion
 
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
-		static void BeginScene(const glm::mat4& v, const glm::mat4& p);
 		static void BeginScene(const glm::mat4& vp);
 
 		static void EndScene();
@@ -44,8 +43,10 @@ namespace Illusion
 
 	private:
 
+		static void StartBatch();
+		static void NextBatch();
+
 		static void Flush();
-		static void StartNewBatch();
 	};
 
 }

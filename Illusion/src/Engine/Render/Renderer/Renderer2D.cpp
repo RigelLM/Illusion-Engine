@@ -126,6 +126,7 @@ namespace Illusion
 
 	void Renderer2D::Shutdown()
 	{
+		delete[] s_Data.QuadVertexBufferBase;
 	}
 
 	void Renderer2D::Clear(const glm::vec3& color)
@@ -138,42 +139,21 @@ namespace Illusion
 		RenderCommand::SetViewport(0, 0, width, height);
 	}
 
-	void Renderer2D::BeginScene(const glm::mat4& view, const glm::mat4& proj)
-	{
-		ResourceManager::GetShader("TextureShader")->Bind();
-		glm::mat4 ViewProjection = proj * view;
-		ResourceManager::GetShader("TextureShader")->UploadUniformMat4("u_ViewProjection", ViewProjection);
-
-		s_Data.QuadIndexCount = 0;
-		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
-
-		s_Data.TextureSlotIndex = 1;
-	}
-
 	void Renderer2D::BeginScene(const glm::mat4& vp)
 	{
 		ResourceManager::GetShader("TextureShader")->Bind();
 		ResourceManager::GetShader("TextureShader")->UploadUniformMat4("u_ViewProjection", vp);
 
-		s_Data.QuadIndexCount = 0;
-		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
-
-		s_Data.TextureSlotIndex = 1;
+		StartBatch();
 	}
 
 	void Renderer2D::EndScene()
 	{
-		uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
-
-		s_Data.vbo->SendData(s_Data.QuadVertexBufferBase, dataSize);
-
 		Flush();
 	}
 
-	void Renderer2D::StartNewBatch()
+	void Renderer2D::StartBatch()
 	{
-		EndScene();
-
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
@@ -182,11 +162,24 @@ namespace Illusion
 
 	void Renderer2D::Flush()
 	{
+		// Nothing to draw
+		if (s_Data.QuadIndexCount == 0)
+			return;
+
+		uint32_t dataSize = (uint32_t)((uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase);
+		s_Data.vbo->SendData(s_Data.QuadVertexBufferBase, dataSize);
+
 		// Bind Textures
 		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.TextureSlots[i]->Bind(i);
 
 		RenderCommand::DrawIndexed(s_Data.vao, s_Data.QuadIndexCount);
+	}
+
+	void Renderer2D::NextBatch()
+	{
+		Flush();
+		StartBatch();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -201,7 +194,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -230,7 +223,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -243,6 +236,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -276,7 +272,7 @@ namespace Illusion
 		const Ref<Texture2D> texture = subtexture->GetSpriteSheet();
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -289,6 +285,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -316,7 +315,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[4] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		for (size_t i = 0; i < quadVertexCount; i++)
 		{
@@ -336,7 +335,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -349,6 +348,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -373,7 +375,7 @@ namespace Illusion
 		const Ref<Texture2D> texture = subtexture->GetSpriteSheet();
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -386,6 +388,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -432,7 +437,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f,0.0f,1.0f })
@@ -462,7 +467,7 @@ namespace Illusion
 		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -475,6 +480,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -509,7 +517,7 @@ namespace Illusion
 		const Ref<Texture2D> texture = subtexture->GetSpriteSheet();
 
 		if (s_Data.QuadIndexCount >= RendererData::MaxIndices)
-			StartNewBatch();
+			NextBatch();
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -522,6 +530,9 @@ namespace Illusion
 		}
 		if (textureIndex == 0.0f)
 		{
+			if (s_Data.TextureSlotIndex >= RendererData::MaxTextureSlots)
+				NextBatch();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
