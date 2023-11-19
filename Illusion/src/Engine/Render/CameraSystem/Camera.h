@@ -37,6 +37,12 @@ namespace Illusion
 			UpdateView();
 			UpdateProjection();
 		}
+		Camera(float aspectRatio)
+		{
+			SetAspectRatio(aspectRatio);
+			UpdateView();
+			UpdateProjection();
+		}
 		~Camera() = default;
 
 		CameraType GetType() { return m_CameraType; }
@@ -94,7 +100,7 @@ namespace Illusion
 
 		CameraType m_CameraType = CameraType::Orthographic;
 
-		float m_AspectRatio = 800.0f / 600.0f;
+		float m_AspectRatio;
 
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 
