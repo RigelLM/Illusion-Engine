@@ -44,17 +44,18 @@ namespace Illusion
 		// Preprocessing the source code
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = rawSource.find(typeToken, 0);
+		size_t pos = rawSource.find(typeToken, 0); // start of shader type declaration
 		while (pos != std::string::npos)
 		{
-			size_t eol = rawSource.find_first_of("\r\n", pos);
+			size_t eol = rawSource.find_first_of("\r\n", pos); // end of shader type declaration
 			ILLUSION_CORE_ASSERT(eol != std::string::npos, "Syntax error");
-			size_t begin = pos + typeTokenLength + 1;
+			size_t begin = pos + typeTokenLength + 1; // start of shader type name (after "#type " keyword)
 			std::string type = rawSource.substr(begin, eol - begin);
 			ILLUSION_CORE_ASSERT(type == "vertex" || type == "fragment", "Invalid shader type specified!");
 			
-			size_t nextLinePos = rawSource.find_first_of("\r\n", eol);
-			pos = rawSource.find(typeToken, nextLinePos);
+			size_t nextLinePos = rawSource.find_first_of("\r\n", eol); // start of shader code after shader type declaration
+			ILLUSION_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			pos = rawSource.find(typeToken, nextLinePos); // start of next shader type declaration
 			sourceCodes[ShaderTypeFromString(type)] = rawSource.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? rawSource.size() - 1 : nextLinePos));
 		}
 
@@ -132,7 +133,10 @@ namespace Illusion
 
 		// Always detach shaders after a successful link.
 		for (auto id : glShaderIDs)
+		{
 			glDetachShader(m_Program, id);
+			glDeleteShader(id);
+		}
 
 	}
 
