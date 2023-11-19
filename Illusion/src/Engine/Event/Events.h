@@ -110,8 +110,10 @@ namespace Illusion
 		// Make a template funtion to dipatche the event
 		// Input: a function
 		// Output: bool
-		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		// 
+		// F will be deduced by the compiler
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
 			// Compare the bound event with the input event associated with the function
 			// GetStaticType is implemented in class inherited from Event, in this context it is T
@@ -122,7 +124,7 @@ namespace Illusion
 				// (T*)			= the cast to the pointer towards the type T
 				// *			= dereference the pointer
 				// The output of the function determins wheter to consume the event or not
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.m_Handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;
