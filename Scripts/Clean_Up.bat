@@ -15,7 +15,7 @@ pushd Illusion\Lib\Glad
 rd /s /q bin
 rd /s /q bin-int
 popd
-pushd Illusion\Lib\GLFW
+pushd Illusion\Lib\glfw
 rd /s /q bin
 rd /s /q bin-int
 popd

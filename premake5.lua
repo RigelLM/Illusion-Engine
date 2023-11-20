@@ -13,7 +13,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Illusion/Lib/GLFW/include"
+IncludeDir["glfw"] = "Illusion/Lib/glfw/include"
 IncludeDir["Glad"] = "Illusion/Lib/Glad/include"
 IncludeDir["ImGui"] = "Illusion/Lib/imgui"
 IncludeDir["glm"] = "Illusion/Lib/glm"
@@ -22,7 +22,7 @@ IncludeDir["EnTT"] = "Illusion/Lib/EnTT/include"
 IncludeDir["Json"] = "Illusion/Lib/nlohmann/include"
 
 group "Dependencies"
-	include "Illusion/Lib/GLFW"
+	include "Illusion/Lib/glfw"
 	include "Illusion/Lib/Glad"
 	include "Illusion/Lib/imgui"
 group ""
@@ -59,7 +59,7 @@ project "Illusion"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/Lib/spdlog/include",
-		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glfw}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
@@ -70,7 +70,7 @@ project "Illusion"
 
 	links 
 	{ 
-		"GLFW",
+		"glfw",
 		"Glad",
 		"ImGui",
 		"opengl32.lib"
@@ -122,7 +122,7 @@ project "Game"
 		"Illusion/src",
 		"Illusion/Lib",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glfw}",
 		"%{IncludeDir.EnTT}"
 	}
 
@@ -176,7 +176,7 @@ project "Editor"
 		"Illusion/src",
 		"Illusion/Lib",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glfw}",
 		"%{IncludeDir.EnTT}"
 	}
 
