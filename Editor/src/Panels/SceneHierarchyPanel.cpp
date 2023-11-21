@@ -47,41 +47,7 @@ namespace Illusion
 
 		ImGui::Begin("Properties");
 		if (m_SelectionContext)
-		{
 			DrawComponents(m_SelectionContext);
-
-			if (ImGui::Button("Add Component"))
-				ImGui::OpenPopup("Add Component");
-
-			if (ImGui::BeginPopup("Add Component"))
-			{
-				if (ImGui::MenuItem("Camera"))
-				{
-					float windowWidth= static_cast<float>(Application::Get().GetWindow().GetWidth());
-					float windowHeight = static_cast<float>(Application::Get().GetWindow().GetHeight());
-					// Set aspect ratio of the camera component so it fits the current window
-					m_SelectionContext.AddComponent<CameraComponent>(windowWidth / windowHeight);
-					// m_SelectionContext.AddComponent<CameraComponent>();
-
-					ImGui::CloseCurrentPopup();
-				}
-
-				if (ImGui::MenuItem("Sprite"))
-				{
-					m_SelectionContext.AddComponent<SpriteComponent>();
-					ImGui::CloseCurrentPopup();
-				}
-
-				if (ImGui::MenuItem("Native Script"))
-				{
-					m_SelectionContext.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-					ImGui::CloseCurrentPopup();
-				}
-
-				ImGui::EndPopup();
-			}
-
-		}
 
 		ImGui::End();
 	}
@@ -90,7 +56,7 @@ namespace Illusion
 	{
 		auto& tag = entity.GetComponent<TagComponent>().Tag;
 
-		ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
+		ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanFullWidth;
 
 		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
 		if (ImGui::IsItemClicked())
@@ -111,7 +77,7 @@ namespace Illusion
 
 		if (opened)
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanFullWidth;
 			bool opened = ImGui::TreeNodeEx((void*)9817239, flags, tag.c_str());
 			if (opened)
 				ImGui::TreePop();
@@ -210,6 +176,54 @@ namespace Illusion
 		ImGui::PopID();
 	}
 
+	template<typename ComponentType, typename UIFunction>
+	void DrawComponent(const std::string& name, Entity entity, UIFunction uiFunction)
+	{
+		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen
+			| ImGuiTreeNodeFlags_Framed
+			| ImGuiTreeNodeFlags_AllowItemOverlap
+			| ImGuiTreeNodeFlags_SpanFullWidth
+			| ImGuiTreeNodeFlags_FramePadding;
+
+		if (entity.HasComponent<ComponentType>())
+		{
+			auto& component = entity.GetComponent<ComponentType>();
+			ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+			ImGui::Separator();
+			bool open = ImGui::TreeNodeEx((void*)typeid(ComponentType).hash_code(), treeNodeFlags, name.c_str());
+			ImGui::PopStyleVar();
+
+			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
+
+			bool removeComponent = false;
+			if (ImGui::Button("+", ImVec2{ lineHeight, lineHeight }))
+				ImGui::OpenPopup("Component Settings");
+
+			if (ImGui::BeginPopup("Component Settings"))
+			{
+				if (ImGui::MenuItem("Remove"))
+				{
+					removeComponent = true;
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				uiFunction(component);
+				ImGui::TreePop();
+			}
+
+			// Defer the deletion
+			if (removeComponent == true)
+				entity.RemoveComponent<ComponentType>();
+		}
+	}
+
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
 		if (entity.HasComponent<TagComponent>())
@@ -219,61 +233,52 @@ namespace Illusion
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
 			strcpy_s(buffer, sizeof(buffer), tag.c_str());
-			if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
+			if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
 			{
 				tag = std::string(buffer);
 			}
 		}
 
-		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap;
+		ImGui::SameLine();
+		ImGui::PushItemWidth(-1);
+		if (ImGui::Button("Add Component"))
+			ImGui::OpenPopup("Add Component");
 
-		if (entity.HasComponent<TransformComponent>())
+		if (ImGui::BeginPopup("Add Component"))
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), treeNodeFlags, "Transform"))
+			if (ImGui::MenuItem("Camera"))
 			{
-				auto& tc = entity.GetComponent<TransformComponent>();
-				DrawVec3Control("Position", tc.Position);
+				float windowWidth = static_cast<float>(Application::Get().GetWindow().GetWidth());
+				float windowHeight = static_cast<float>(Application::Get().GetWindow().GetHeight());
+				// Set aspect ratio of the camera component so it fits the current window
+				m_SelectionContext.AddComponent<CameraComponent>(windowWidth / windowHeight);
 
-				glm::vec3 r = glm::degrees(tc.Rotation);
-				DrawVec3Control("Rotation", r);
-				tc.Rotation = glm::radians(r);
-
-				DrawVec3Control("Scale", tc.Scale, 1.0f);
-
-				ImGui::TreePop();
+				ImGui::CloseCurrentPopup();
 			}
+			if (ImGui::MenuItem("Sprite"))
+			{
+				m_SelectionContext.AddComponent<SpriteComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+
+			ImGui::EndPopup();
 		}
+		ImGui::PopItemWidth();
 
-		// can be deleted
-		if (entity.HasComponent<CameraComponent>())
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
-
-			bool open = ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), treeNodeFlags, "Camera");
-
-			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-
-			bool removeComponent = false;
-			if (ImGui::Button("+", ImVec2{ 20.0f,20.0f }))
-				ImGui::OpenPopup("Component Settings");
-
-			ImGui::PopStyleVar();
-
-			if (ImGui::BeginPopup("Component Settings"))
+		DrawComponent<TransformComponent>("Transform", entity, [](auto& component)
 			{
-				if (ImGui::MenuItem("Remove"))
-				{
-					removeComponent = true;
-					ImGui::CloseCurrentPopup();
-				}
+				DrawVec3Control("Position", component.Position);
 
-				ImGui::EndPopup();
-			}
+				glm::vec3 r = glm::degrees(component.Rotation);
+				DrawVec3Control("Rotation", r);
+				component.Rotation = glm::radians(r);
 
-			if (open)
+				DrawVec3Control("Scale", component.Scale, 1.0f);
+			});
+
+		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)
 			{
-				auto& cc = entity.GetComponent<CameraComponent>();
-				auto& c = cc.camera;
+				auto& c = component.camera;
 
 				// ImGui::Checkbox("Primary", &cc.Primary);
 
@@ -325,51 +330,13 @@ namespace Illusion
 					if (ImGui::DragFloat("Far", &orthoFar))
 						c.SetOrthoFar(orthoFar);
 				}
+			});
 
-				ImGui::TreePop();
-			}
-
-			// Defer the deletion
-			if (removeComponent == true)
-				entity.RemoveComponent<CameraComponent>();
-		}
-		// can be deleted
-		if (entity.HasComponent<SpriteComponent>())
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
-			bool open = ImGui::TreeNodeEx((void*)typeid(SpriteComponent).hash_code(), treeNodeFlags, "Sprite");
-
-			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-
-			bool removeComponent = false;
-			if (ImGui::Button("+", ImVec2{ 20.0f,20.0f }))
-				ImGui::OpenPopup("Component Settings");
-
-			ImGui::PopStyleVar();
-
-			if (ImGui::BeginPopup("Component Settings"))
+		DrawComponent<SpriteComponent>("Sprite", entity, [](auto& component)
 			{
-				if (ImGui::MenuItem("Remove"))
-				{
-					removeComponent = true;
-					ImGui::CloseCurrentPopup();
-				}
+				ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+			});
 
-				ImGui::EndPopup();
-			}
-
-			if (open)
-			{
-				auto& sc = entity.GetComponent<SpriteComponent>();
-				ImGui::ColorEdit4("Color", glm::value_ptr(sc.Color));
-
-				ImGui::TreePop();
-			}
-
-			// Defer the deletion
-			if (removeComponent == true)
-				entity.RemoveComponent<SpriteComponent>();
-		}
 	}
 
 }

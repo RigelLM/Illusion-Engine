@@ -32,7 +32,9 @@ namespace Illusion
 		m_Logger.AddComponent<NativeScriptComponent>().Bind<Logger>();
 
 		m_EditorCamera = m_ActiveScene->CreateEntity("Editor Camera");
-		m_EditorCamera.AddComponent<CameraComponent>();
+		float windowWidth = static_cast<float>(Application::Get().GetWindow().GetWidth());
+		float windowHeight = static_cast<float>(Application::Get().GetWindow().GetHeight());
+		m_EditorCamera.AddComponent<CameraComponent>(windowWidth/windowHeight);
 		m_EditorCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
 		// Panels
@@ -84,7 +86,7 @@ namespace Illusion
 			window_flags |= ImGuiWindowFlags_NoBackground;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-		ImGui::Begin("DockSpace Demo", RunningStatus, window_flags);
+		ImGui::Begin("DockSpace", RunningStatus, window_flags);
 		ImGui::PopStyleVar();
 
 		if (opt_fullscreen)
@@ -92,11 +94,16 @@ namespace Illusion
 
 		// Dockspace
 		ImGuiIO& io = ImGui::GetIO();
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 400.0f;
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), opt_flags);
 		}
+		style.WindowMinSize.x = minWinSizeX;
 
 		if (ImGui::BeginMenuBar())
 		{

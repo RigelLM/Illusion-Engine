@@ -25,8 +25,8 @@ namespace Illusion
 
 		// Constrctor for the struct WindowProps
 		WindowProps(const std::string& title = "Illusion Engine",
-			unsigned int width = 800,
-			unsigned int height = 600)
+			unsigned int width = 1600,
+			unsigned int height = 1200)
 			: Title(title), Width(width), Height(height) {}
 	};
 

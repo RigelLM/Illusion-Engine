@@ -34,6 +34,8 @@ namespace Illusion
 	{
 	public:
 		Application();
+		Application(unsigned int width, unsigned int height);
+
 		virtual ~Application();
 
 		//The function where application actually starts

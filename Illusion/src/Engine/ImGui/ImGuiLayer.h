@@ -38,6 +38,8 @@ namespace Illusion
 
 		void BlockEvents(bool block) { m_BlockEvents = block; }
 
+		void SetDarkThemeColor();
+
 	private:
 		bool m_BlockEvents = true;
 	};

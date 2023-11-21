@@ -11,6 +11,7 @@ namespace Illusion
 
 	public:
 		Game()
+			:Application(1600, 1200)
 		{
 			PushLayer(new EditorLayer());
 		}

@@ -21,6 +21,24 @@ namespace Illusion
 {
 	Application* Application::s_Instance = nullptr;
 
+	Application::Application(unsigned int width, unsigned int height)
+	{
+		ILLUSION_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
+
+		// Create a window
+		m_Window.reset(new Window(WindowProps("Illusion Editor", width, height)));
+
+		// Bind OnEvent as a overall callback function glfw
+		// The program would call OnEvent whenever there's an event
+		m_Window->SetEventCallback(ENGINE_BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer2D::Init();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+	}
+
 	Application::Application()
 	{
 		ILLUSION_CORE_ASSERT(!s_Instance, "Application already exists!");
