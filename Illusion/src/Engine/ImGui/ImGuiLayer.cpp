@@ -14,8 +14,8 @@
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
-#include "examples/imgui_impl_glfw.cpp"
-#include "examples/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.cpp"
+#include "backends/imgui_impl_opengl3.h"
 
 #include "Engine/Core/Application/Application.h"
 
