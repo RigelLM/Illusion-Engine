@@ -1,3 +1,7 @@
 [submodule "Illusion/Lib/glfw"]
 	path = Illusion/Lib/glfw
 	url = https://github.com/RigelLM/glfw.git
+[submodule "Illusion/Lib/imgui"]
+	path = Illusion/Lib/imgui
+	url = https://github.com/RigelLM/imgui.git
+	branch = docking
