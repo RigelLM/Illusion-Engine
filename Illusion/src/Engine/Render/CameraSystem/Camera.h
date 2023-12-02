@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <Engine/Core/Application/Application.h>
 
 namespace Illusion
 {
@@ -34,12 +35,10 @@ namespace Illusion
 	public:
 		Camera()
 		{
-			UpdateView();
-			UpdateProjection();
-		}
-		Camera(float aspectRatio)
-		{
-			SetAspectRatio(aspectRatio);
+			unsigned int width =  Application::Get().GetWindow().GetWidth();
+			unsigned int height = Application::Get().GetWindow().GetHeight();
+			SetAspectRatio(static_cast<float>(width)/static_cast<float>(height));
+
 			UpdateView();
 			UpdateProjection();
 		}

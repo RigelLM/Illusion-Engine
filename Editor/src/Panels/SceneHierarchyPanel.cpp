@@ -248,10 +248,7 @@ namespace Illusion
 		{
 			if (ImGui::MenuItem("Camera"))
 			{
-				float windowWidth = static_cast<float>(Application::Get().GetWindow().GetWidth());
-				float windowHeight = static_cast<float>(Application::Get().GetWindow().GetHeight());
-				// Set aspect ratio of the camera component so it fits the current window
-				m_SelectionContext.AddComponent<CameraComponent>(windowWidth / windowHeight);
+				m_SelectionContext.AddComponent<CameraComponent>();
 
 				ImGui::CloseCurrentPopup();
 			}

@@ -1,5 +1,7 @@
 # Illusion Engine
 
+![banner](banner.png)
+
 Illusion Engine aims to be a powerful 3D game engine developed in C++ and OpenGL. This project plans to provide a comprehensive set of features for game development, ranging from fast 2D rendering to high-fidelity Physically-Based 3D rendering.
 
 ***
@@ -35,7 +37,7 @@ Visual Studio 2019 or 2022 is recommended, as Illusion is officially untested on
 Start by cloning the repository with the following command:
 
 ```bash
-git clone https://github.com/RigelLM/Illusion-Engine.git
+git clone --recursive https://github.com/RigelLM/Illusion-Engine.git
 ```
 
 <ins>**2. Configuring the project:**</ins>

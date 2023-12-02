@@ -32,9 +32,7 @@ namespace Illusion
 		m_Logger.AddComponent<NativeScriptComponent>().Bind<Logger>();
 
 		m_EditorCamera = m_ActiveScene->CreateEntity("Editor Camera");
-		float windowWidth = static_cast<float>(Application::Get().GetWindow().GetWidth());
-		float windowHeight = static_cast<float>(Application::Get().GetWindow().GetHeight());
-		m_EditorCamera.AddComponent<CameraComponent>(windowWidth/windowHeight);
+		m_EditorCamera.AddComponent<CameraComponent>();
 		m_EditorCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
 		// Panels
