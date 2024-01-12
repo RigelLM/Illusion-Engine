@@ -16,7 +16,6 @@ namespace Illusion
 
 		void OnUpdate();
 
-
 		void OnImGuiRender();
 
 	private:

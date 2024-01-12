@@ -32,6 +32,7 @@ namespace Illusion
 		friend class Entity;
 		friend class SceneHierarchyPanel;
 		friend class LogPanel;
+		friend class Serializer;
 	};
 
 }
