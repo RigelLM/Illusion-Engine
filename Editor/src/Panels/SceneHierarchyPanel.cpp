@@ -35,7 +35,7 @@ namespace Illusion
 			m_SelectionContext = {};
 
 		// Right click on the blank space
-		if (ImGui::BeginPopupContextWindow(0, 1))
+		if (ImGui::BeginPopupContextWindow(0, ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
 		{
 			if (ImGui::MenuItem("Create Empty Entity"))
 				m_Context->CreateEntity("Empty Entity");
@@ -74,6 +74,7 @@ namespace Illusion
 
 			ImGui::EndPopup();
 		}
+
 
 		if (opened)
 		{

@@ -1,0 +1,6 @@
+[12:44:37] ENGINE: --------------------Logging System Initialized--------------------
+[12:44:37] ENGINE: Window Created: Illusion Editor (1600,1200)
+[12:44:37] ENGINE: OpenGL Info:
+[12:44:37] ENGINE:   Vendor	: NVIDIA Corporation
+[12:44:37] ENGINE:   Renderer	: NVIDIA GeForce RTX 3060 Laptop GPU/PCIe/SSE2
+[12:44:37] ENGINE:   Version	: 4.6.0 NVIDIA 546.30
