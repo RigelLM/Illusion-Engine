@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 {
 	//Initialization of the Logging system
 	Illusion::Log::Init();
-	ENGINE_CORE_WARN("--------------------Logging System Initialized--------------------");
+	ENGINE_CORE_INFO("--------------------Logging System Initialized--------------------");
 
 	//Creation of the app
 	auto app = Illusion::CreateApplication();

@@ -76,9 +76,9 @@ namespace Illusion
 
 		// Log the OpenGL information to the console
 		ENGINE_CORE_INFO("OpenGL Info:");
-		ENGINE_CORE_INFO("  Vendor\t: {0}", glGetString(GL_VENDOR));
-		ENGINE_CORE_INFO("  Renderer\t: {0}", glGetString(GL_RENDERER));
-		ENGINE_CORE_INFO("  Version\t: {0}", glGetString(GL_VERSION));
+		ENGINE_CORE_INFO("  Vendor\t: {0}", (char*)glGetString(GL_VENDOR));
+		ENGINE_CORE_INFO("  Renderer\t: {0}", (char*)glGetString(GL_RENDERER));
+		ENGINE_CORE_INFO("  Version\t: {0}", (char*)glGetString(GL_VERSION));
 
 		// The user pointer could be used to store whatever you what
 		glfwSetWindowUserPointer(m_Window, &m_Data);

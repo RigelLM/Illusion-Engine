@@ -11,26 +11,28 @@
 
 #include "pch.h"
 #include "Log.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion
 {
-	Ref<spdlog::logger> Log::s_CoreLogger;
-	Ref<spdlog::logger> Log::s_ClientLogger;
+	// Two sinks with different log levels and formats.
+	// The console will show only warnings or errors, while the file will log all.
+	Ref<spdlog::sinks::stdout_color_sink_mt> s_ConsoleSink = CreateRef<spdlog::sinks::stdout_color_sink_mt>();
+	Ref<spdlog::sinks::basic_file_sink_mt> s_FileSink = CreateRef<spdlog::sinks::basic_file_sink_mt>("logs/log.txt", true);
+
+	spdlog::logger Log::s_CoreLogger = spdlog::logger("ENGINE", { s_ConsoleSink , s_FileSink });
+	spdlog::logger Log::s_ClientLogger = spdlog::logger("APP", { s_ConsoleSink , s_FileSink });
 
 	void Log::Init()
 	{
-		//Set up all the logging pattern
-		spdlog::set_pattern("%^[%T] %n: %v%$");
+		s_ConsoleSink->set_level(spdlog::level::warn);
+		s_ConsoleSink->set_pattern("%^[%T] %n: %v%$");
 
-		//Set up the Logger for game engine
-		s_CoreLogger = spdlog::stdout_color_mt("ENGINE");
-		s_CoreLogger->set_level(spdlog::level::trace);
+		s_FileSink->set_level(spdlog::level::trace);
+		s_FileSink->set_pattern("%^[%T] %n: %v%$");
 
-		//Set up Logger for game application
-		s_ClientLogger = spdlog::stdout_color_mt("APP");
-		s_ClientLogger->set_level(spdlog::level::trace);
+		s_CoreLogger.set_level(spdlog::level::debug);
+		s_ClientLogger.set_level(spdlog::level::debug);
 	}
 	//--------------------namespace: Illusion ends--------------------
 }
