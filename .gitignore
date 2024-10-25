@@ -1,6 +1,6 @@
 
 /Game/logs
-
+/Editor/logs
 /build
 /.vs
 /bin-int

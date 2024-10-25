@@ -29,7 +29,7 @@ namespace Illusion
 	{
 		if (m_CameraType == CameraType::Perspective)
 		{
-			m_View = glm::lookAt(m_Position, m_PerspectiveProp.Direction * m_Position, m_PerspectiveProp.Up);
+			m_View = glm::lookAt(m_Position, m_PerspectiveProp.Direction + m_Position, m_PerspectiveProp.Up);
 		}
 		else
 		{
