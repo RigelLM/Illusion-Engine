@@ -274,11 +274,22 @@ namespace Illusion
 				DrawVec3Control("Scale", component.Scale, 1.0f);
 			});
 
-		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)
+		DrawComponent<CameraComponent>("Camera", entity, [this](auto& component)
 			{
 				auto& c = component.camera;
 
-				// ImGui::Checkbox("Primary", &cc.Primary);
+				// Check box for primary camera
+				if (ImGui::Checkbox("Primary", &component.Primary) && component.Primary)
+				{
+					// Set all other cameras to be not primary
+					auto view = m_Context->m_Registry.view<CameraComponent>();
+					for (auto entityID : view)
+					{
+						auto& CamComp = view.get<CameraComponent>(entityID);
+						if (&CamComp != &component)
+							CamComp.Primary = false;
+					}
+				}
 
 				const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
 				const char* currentProjectionTypeString = projectionTypeStrings[(int)c.GetType()];

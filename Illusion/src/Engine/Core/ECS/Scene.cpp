@@ -55,22 +55,22 @@ namespace Illusion
 				});
 		}
 
+		// Get primary camera and its viewprojection matrix
 		glm::mat4* vp = nullptr;
 		glm::mat4 temp;
 		auto view = m_Registry.view<CameraComponent>();
 		for (auto entity : view)
 		{
-			auto& Cam = view.get<CameraComponent>(entity);
-			if (Cam.Primary)
+			auto& CamComp = view.get<CameraComponent>(entity);
+			if (CamComp.Primary)
 			{
-				temp = Cam.camera.GetViewProjection();
+				temp = CamComp.camera.GetViewProjection();
 				vp = &temp;
 				break;
 			}
 		}
 
 		// Rendering
-
 		Illusion::Renderer2D::Clear({ 0.0f, 0.0f, 0.0f });
 
 		if (vp)

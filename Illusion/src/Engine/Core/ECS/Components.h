@@ -84,7 +84,7 @@ namespace Illusion
 	{
 		Camera camera;
 
-		bool Primary = true;
+		bool Primary = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
