@@ -124,7 +124,7 @@ namespace Illusion
 				// (T*)			= the cast to the pointer towards the type T
 				// *			= dereference the pointer
 				// The output of the function determins wheter to consume the event or not
-				m_Event.m_Handled = func(static_cast<T&>(m_Event));
+				m_Event.m_Handled |= func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;
