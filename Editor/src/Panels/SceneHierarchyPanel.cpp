@@ -247,15 +247,22 @@ namespace Illusion
 
 		if (ImGui::BeginPopup("Add Component"))
 		{
+
 			if (ImGui::MenuItem("Camera"))
 			{
-				m_SelectionContext.AddComponent<CameraComponent>();
-
+				if (!m_SelectionContext.HasComponent<CameraComponent>())
+					m_SelectionContext.AddComponent<CameraComponent>();
+				else
+					ENGINE_CORE_WARN("This entity already has a Camera Component!");
 				ImGui::CloseCurrentPopup();
 			}
+
 			if (ImGui::MenuItem("Sprite"))
 			{
-				m_SelectionContext.AddComponent<SpriteComponent>();
+				if (!m_SelectionContext.HasComponent<SpriteComponent>())
+					m_SelectionContext.AddComponent<SpriteComponent>();
+				else
+					ENGINE_CORE_WARN("This entity already has a Sprite Component");
 				ImGui::CloseCurrentPopup();
 			}
 
