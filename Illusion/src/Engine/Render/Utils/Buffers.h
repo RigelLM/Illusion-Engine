@@ -17,7 +17,7 @@ namespace Illusion
 	// Type of the vertex data
 	enum class VertexDataType
 	{
-		None= 0,
+		None = 0,
 		Float, Float2, Float3, Float4,
 		Mat3, Mat4,
 		Int, Int2, Int3, Int4,
@@ -67,17 +67,17 @@ namespace Illusion
 		{
 			switch (Type)
 			{
-				case VertexDataType::Float:			return 1;
-				case VertexDataType::Float2:		return 2;
-				case VertexDataType::Float3:		return 3;
-				case VertexDataType::Float4:		return 4;
-				case VertexDataType::Mat3:			return 3; // 3 * float3
-				case VertexDataType::Mat4:			return 4; // 4 * float4
-				case VertexDataType::Int:			return 1;
-				case VertexDataType::Int2:			return 2;
-				case VertexDataType::Int3:			return 3;
-				case VertexDataType::Int4:			return 4;
-				case VertexDataType::Bool:			return 1;
+			case VertexDataType::Float:			return 1;
+			case VertexDataType::Float2:		return 2;
+			case VertexDataType::Float3:		return 3;
+			case VertexDataType::Float4:		return 4;
+			case VertexDataType::Mat3:			return 3; // 3 * float3
+			case VertexDataType::Mat4:			return 4; // 4 * float4
+			case VertexDataType::Int:			return 1;
+			case VertexDataType::Int2:			return 2;
+			case VertexDataType::Int3:			return 3;
+			case VertexDataType::Int4:			return 4;
+			case VertexDataType::Bool:			return 1;
 
 			}
 
@@ -177,12 +177,52 @@ namespace Illusion
 
 	};
 
+	enum class FBOTextureFormat
+	{
+		None = 0,
+		// Color
+		RGBA8,
+
+		// Depth/stencil
+		DEPTH24STENCIL8,
+
+		// Defaults
+
+		Depth = DEPTH24STENCIL8
+
+	};
+
+	struct FBOTextureSpecification
+	{
+		FBOTextureSpecification() = default;
+		FBOTextureSpecification(FBOTextureFormat format)
+			: TextureFormat(format) {};
+
+		FBOTextureFormat TextureFormat = FBOTextureFormat::None;
+	};
+
+	struct FBOTextureAttachmentSpecification
+	{
+		FBOTextureAttachmentSpecification() = default;
+		FBOTextureAttachmentSpecification(std::initializer_list<FBOTextureSpecification> attachments)
+			: Attachments(attachments) {};
+
+		std::vector<FBOTextureSpecification> Attachments;
+	};
+
+	struct FBOSpecification
+	{
+		uint32_t Samples = 1;
+		uint32_t Width = 0, Height = 0;
+		FBOTextureAttachmentSpecification Attachments;
+	};
+
 	//--------------------Frame Buffer---------------------
 	//------------------------ FBO ------------------------
 	class FBO
 	{
 	public:
-		FBO(uint32_t width, uint32_t height);
+		FBO(const FBOSpecification& spec);
 
 		~FBO();
 
@@ -190,18 +230,24 @@ namespace Illusion
 
 		void Unbind() const;
 
-		uint32_t GetColorAttachment() const { return m_ColorAttachment; }
+		uint32_t GetColorAttachment(uint32_t index = 0) const { return m_ColorAttachments[index]; }
 
 		void Resize(uint32_t width, uint32_t height);
 
 	private:
 		uint32_t m_FBO;
 
-		uint32_t m_ColorAttachment;
+		FBOSpecification m_Specification;
+
+		std::vector<FBOTextureSpecification> m_ColorAttachmentSpecifications;
+		FBOTextureSpecification m_DepthAttachmentSpecification;
+
+		std::vector<uint32_t> m_ColorAttachments;
 		uint32_t m_DepthAttachment;
 
-		uint32_t m_Width, m_Height;
+	private:
 
+		void Create();
 	};
 
 	//--------------------namespace: Illusion ends--------------------

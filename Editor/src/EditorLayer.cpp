@@ -20,7 +20,11 @@ namespace Illusion
 
 	void EditorLayer::OnAttach()
 	{
-		m_FBO.reset(new FBO(800, 600));
+		FBOSpecification fbspec;
+		fbspec.Width = 800;
+		fbspec.Height = 600;
+		fbspec.Attachments = { FBOTextureFormat::RGBA8, FBOTextureFormat::Depth };
+		m_FBO = CreateRef<FBO>(fbspec);
 
 		m_ActiveScene = CreateRef<Scene>();
 
