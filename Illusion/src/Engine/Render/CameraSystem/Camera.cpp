@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Camera.cpp
+ * \brief  Internal camera class, intergrating perspective and orthographic into one class
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "pch.h"
 #include "Camera.h"
 

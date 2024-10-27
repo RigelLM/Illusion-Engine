@@ -1,15 +1,13 @@
-/*
- * ========================== EntryPoint.h ==========================
- *                             -- ils --
- *                                              CREATE -- 2023.01.12
- *                                              MODIFY --
- * -----------------------------------------------------------------
- * The Entry point for the whole application
- * Including a main function
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   EntryPoint.h
+ * \brief  Entry point for the application, including main functio
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
+
 //The Creation function of the application should be implement by the user themselves
 //Since we don't know what they will call their apps and what they will do with their apps
 //There cannot be a uniform implementation of the creation function

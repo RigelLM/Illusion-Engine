@@ -1,16 +1,13 @@
-/*
- * ========================== Events.h ==========================
- *                          -- ils --
- *                                           CREATE -- 2023.01.12
- *                                           MODIFY --
- * ---------------------------------------------------------------
- * Events abstract class
- * EventDispatcher class
- * ----------------------------
- * 
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   Events.h
+ * \brief  Abstract Event classes and EventDispatcher class,
+ * handling all kinds of input events
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "pch.h"
 #include "Engine/Core/Core.h"

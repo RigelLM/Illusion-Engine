@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   SubTexture.cpp
+ * \brief  SubTexture class, supporting sampling from a spritesheet
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "pch.h"
 #include "SubTexture.h"
 

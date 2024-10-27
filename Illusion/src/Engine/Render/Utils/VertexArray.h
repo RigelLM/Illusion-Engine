@@ -1,14 +1,12 @@
-/*
- * ===================== VertexArray.h ========================
- *                         -- ils --
- *                                         CREATE -- 2023.01.16
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The VAO class
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   VertexArray.h
+ * \brief  VertexArray class, wrapping opengl vertex array obeject
+ *
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include <memory>
 #include "Buffers.h"

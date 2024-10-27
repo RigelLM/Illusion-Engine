@@ -1,4 +1,12 @@
-#pragma once
+﻿#pragma once
+
+/*****************************************************************//**
+ * \file   Scene.h
+ * \brief  Scene class that represents the level of the game
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "entt.hpp"
 #include <Engine/Event/Events.h>
@@ -7,6 +15,7 @@
 
 namespace Illusion
 {
+	// Forward decleration
 	class Entity;
 
 	class Scene

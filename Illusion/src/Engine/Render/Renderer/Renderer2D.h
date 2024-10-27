@@ -1,5 +1,13 @@
 #pragma once
 
+/*****************************************************************//**
+ * \file   Renderer2D.h
+ * \brief  Renderer class used for 2D rendering
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "Engine/Render/Utils/Texture.h"
 #include "Engine/Render/Utils/SubTexture.h"
 

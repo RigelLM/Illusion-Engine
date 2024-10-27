@@ -1,5 +1,13 @@
 #pragma once
 
+/*****************************************************************//**
+ * \file   SubTexture.h
+ * \brief  SubTexture class, supporting sampling from a spritesheet
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include <glm/glm.hpp>
 
 #include "Texture.h"

@@ -1,15 +1,12 @@
-/*
- * ===================== RenderCommand.h ======================
- *                         -- ils --
- *                                         CREATE -- 2023.01.16
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The RenderCommand Class
- * Containing some basic opengl commands
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   RenderCommand.h
+ * \brief  RenderCommand class, wrapping all basic opengl commands
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include <glm/glm.hpp>
 

@@ -1,14 +1,12 @@
-/*
- * ====================== Texture.h =====================
- *                       -- ils --
- *                                   CREATE -- 2023.01.20
- *                                   MODIFY --
- * ------------------------------------------------------
- * The Abstract Texture Class
- * The Texure2D Class which will be used in application
- * ----------------------------
- */
 #pragma once
+
+/*****************************************************************//**
+ * \file   Texture.h
+ * \brief  Texture class, supporting render object with textures
+ *
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "Engine/Core/Core.h"
 

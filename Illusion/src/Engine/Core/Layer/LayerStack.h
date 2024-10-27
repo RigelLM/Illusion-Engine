@@ -1,14 +1,13 @@
-/*
- * ======================= LayerStack.h ===========================
- *						  -- ils --
- *                                         CREATE -- 2023.01.13
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The layerStack class
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   LayerStack.h
+ * \brief  The layerstack class that stores all layers for an
+ * application
+ *
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Core/Core.h"
 #include "Layer.h"

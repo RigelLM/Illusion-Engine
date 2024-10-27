@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Scene.h
+ * \brief  Scene class that represents the level of the game
+ *
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "pch.h"
 #include "Scene.h"
 

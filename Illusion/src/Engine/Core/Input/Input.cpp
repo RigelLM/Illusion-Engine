@@ -1,12 +1,11 @@
-/*
- * ========================== Input.h =================================
- *                              -- ils --
- *                                                 CREATE -- 2023.02.10
- *                                                 MODIFY --
- * --------------------------------------------------------------------
- * Input method implementations
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   Input.cpp
+ * \brief  Input method implementation
+ * 
+ * \author Mian Li
+ * \date   Febuary 2023
+ *********************************************************************/
+
 
 #include "pch.h"
 #include "Input.h"
@@ -16,7 +15,6 @@
 #include <GLFW/glfw3.h>
 
  //--------------------namespace: Illusion starts--------------------
-
 namespace Illusion
 {
 

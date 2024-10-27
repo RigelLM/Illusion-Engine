@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Entity.h
+ * \brief  Wrapper class for entity in entt lib
+ *
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "pch.h"
 #include "Entity.h"
 

@@ -1,11 +1,10 @@
-/*
- * ===================== Timestep.cpp =========================
- *                        -- ils --
- *                                         CREATE -- 2023.01.20
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The Timstep class
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   Timestep.cpp
+ * \brief  Timestep class that calculate delta time for rendering
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
+
 #include "pch.h"
 #include "Timestep.h"

@@ -1,15 +1,13 @@
-/*
- * ===================== ResourceManager.h ====================
- *                          -- ils --
- *                                         CREATE -- 2023.01.20
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The ResourceManager class
- * Containing static helper methods
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   ResourceManager.h
+ * \brief  ResourceManager class, contains some static helper
+ * functions
+ *
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Render/Utils/Shader.h"
 

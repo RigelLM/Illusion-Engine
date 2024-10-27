@@ -1,14 +1,12 @@
-/*
- * ======================= Shader.h ===========================
- *                        -- ils --
- *                                         CREATE -- 2023.01.14
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The Shader Class
- * Use for shader program
- * ----------------------------
- */
 #pragma once
+
+/*****************************************************************//**
+ * \file   Shader.h
+ * \brief  Shader class, wrapping opengl shaders
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include <string>
 #include <glm/glm.hpp>

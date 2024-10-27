@@ -1,14 +1,12 @@
-/*
- * ===================== Timestep.h ===========================
- *                        -- ils --
- *                                         CREATE -- 2023.01.20
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The Timstep class
- * Calculate the time spend on rendering each frame
- * ----------------------------
- */
 #pragma once
+
+/*****************************************************************//**
+ * \file   Timestep.cpp
+ * \brief  Timestep class that calculate delta time for rendering
+ *
+ * \author Mian Li
+ * \date   January 2024
+ *********************************************************************/
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion

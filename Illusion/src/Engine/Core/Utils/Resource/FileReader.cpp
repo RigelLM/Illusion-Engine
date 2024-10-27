@@ -1,13 +1,11 @@
-/*
- * ===================== FileReader.h =========================
- *                         -- ils --
- *                                         CREATE -- 2023.01.20
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The FileReader class
- * Containing static helper methods
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   FileReader.cpp
+ * \brief  The FileReader class, contains some static helper
+ * functions
+ * 
+ * \author Mian Li
+ * \date   January 2024
+ *********************************************************************/
 
 #include "pch.h"
 #include "FileReader.h"

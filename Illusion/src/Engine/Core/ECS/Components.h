@@ -1,5 +1,13 @@
 ﻿#pragma once
 
+/*****************************************************************//**
+ * \file   Components.h
+ * \brief  Contains all basic components for the engine
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include "Script.h"
 
 #include <glm/glm.hpp>
@@ -11,6 +19,7 @@
 
 namespace Illusion
 {
+	// Component that stores the name for every entity
 	struct TagComponent
 	{
 		std::string Tag;
@@ -21,6 +30,7 @@ namespace Illusion
 			:Tag(tag) {}
 	};
 
+	// Component that stores position/rotation/scalation for every entity
 	struct TransformComponent
 	{
 		glm::vec3 Position = { 0.0f,0.0f,0.0f };
@@ -45,6 +55,7 @@ namespace Illusion
 
 	};
 
+	// Component used for pure color rendering
 	struct SpriteComponent
 	{
 		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -55,6 +66,7 @@ namespace Illusion
 			:Color(color) {}
 	};
 
+	// Component used to support C++ scripting
 	struct NativeScriptComponent
 	{
 		Script* ScriptInstance = nullptr;
@@ -80,6 +92,7 @@ namespace Illusion
 		}
 	};
 
+	// Component that wraps the internal camera class
 	struct CameraComponent
 	{
 		Camera camera;

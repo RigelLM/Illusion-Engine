@@ -1,13 +1,13 @@
-/*
- * ===================== Window.h ========================
- *                         -- ils --
- *                                         CREATE -- 2023.01.12
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The Window class for Windows platform
- * ----------------------------
- */
 #pragma once
+
+
+/*****************************************************************//**
+ * \file   Window.h
+ * \brief  Window class, wrapping glfw window
+ *
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Core/Core.h"
 #include "Engine/Event/Events.h"

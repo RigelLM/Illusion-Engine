@@ -1,16 +1,13 @@
-/*
- * ========================== pch.h ==========================
- *                          -- ils --
- *                                        CREATE -- 2023.01.12
- *                                        MODIFY --
- * ----------------------------------------------------------
- *   Pre Compile Header
- *   Used for accelerate the speed of compiling
- *   Including some libraries that would not change frequently
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   pch.h
+ * \brief  Pre-compile header, accelerating compiling speed,
+ * including some header files that would not change frequently
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 //!!!!!Include this in all cpp file!!!!!
 

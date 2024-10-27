@@ -1,15 +1,12 @@
-/*
- * ======================== Buffers.h ==========================
- *                          -- ils --
- *                                         CREATE -- 2023.01.14
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The buffer classes
- * VBO, IBO, FBO, and RBO
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   Buffers.h
+ * \brief  Buffer classes, wrapping opengl buffer objects
+ *
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
  //--------------------namespace: Illusion starts--------------------
 namespace Illusion

@@ -1,15 +1,12 @@
-/*
- * ========================== Log.h ==========================
- *                          -- ils --
- *                                        CREATE -- 2023.01.12
- *                                        MODIFY --
- * ----------------------------------------------------------
- * Logging system
- * Recording data of the engine and game
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   Log.h
+ * \brief  Logging system
+ *
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Core/Core.h"
 #include "spdlog/spdlog.h"

@@ -1,18 +1,14 @@
-/*
- * ========================== Input.h ==========================
- *                             -- ils --
- *                                          CREATE -- 2023.01.12
- *                                          MODIFY --
- * -------------------------------------------------------------
- * The abstract Input class
- * Containing static methods that
- * can be called outside of the class
- *
- * Some KeyCodes and MouseButtonCodes
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   Input.h
+ * \brief  The abstract input class, containing static 
+ * methods that can be called outside of the class
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
+
 
 #include "KeyCode.h"
 #include "MouseCode.h"

@@ -1,5 +1,14 @@
 #pragma once
 
+/*****************************************************************//**
+ * \file   KeyCode.h
+ * \brief  Defines all keycodes, wrapping all glfw keycodes
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
+
 namespace Illusion
 {
 	using KeyCode = uint16_t;

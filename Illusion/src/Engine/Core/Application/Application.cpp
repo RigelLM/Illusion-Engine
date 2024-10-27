@@ -1,14 +1,11 @@
-/*
- * ===================== Application.cpp ======================
- *                         -- ils --
- *                                         CREATE -- 2023.01.12
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The application class
- * Connect the Engine with the Game
- * Responsible for the runnin of the game
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   Application.cpp
+ * \brief  Appliacton class that connects the engine with
+ * the applications, and it is responsible to run the main function
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "pch.h"
 #include "Application.h"

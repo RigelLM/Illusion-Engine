@@ -80,12 +80,12 @@ namespace Illusion
 		Particle& particle = m_ParticlePool[m_PoolIndex];
 		particle.Active = true;
 		particle.Position = m_Prop.Position;
-		particle.Rotation = Random::Float() * 2.0f * glm::pi<float>();
+		particle.Rotation = Utils::Random::Float() * 2.0f * glm::pi<float>();
 
 		// Velocity
 		particle.Velocity = m_Prop.Velocity;
-		particle.Velocity.x += m_Prop.VelocityVariation.x * (Random::Float() - 0.5f);
-		particle.Velocity.y += m_Prop.VelocityVariation.y * (Random::Float() - 0.5f);
+		particle.Velocity.x += m_Prop.VelocityVariation.x * (Utils::Random::Float() - 0.5f);
+		particle.Velocity.y += m_Prop.VelocityVariation.y * (Utils::Random::Float() - 0.5f);
 
 		// Color
 		particle.ColorBegin = m_Prop.ColorBegin;
@@ -93,7 +93,7 @@ namespace Illusion
 
 		particle.LifeTime = m_Prop.LifeTime;
 		particle.LifeRemaining = m_Prop.LifeTime;
-		particle.SizeBegin = m_Prop.SizeBegin + m_Prop.SizeVariation * (Random::Float() - 0.5f);
+		particle.SizeBegin = m_Prop.SizeBegin + m_Prop.SizeVariation * (Utils::Random::Float() - 0.5f);
 		particle.SizeEnd = m_Prop.SizeEnd;
 		particle.Scale = m_Prop.Scale;
 

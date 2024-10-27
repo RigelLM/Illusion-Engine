@@ -1,12 +1,10 @@
-/*
- * ===================== VertexArray.cpp ======================
- *                          -- ils --
- *                                         CREATE -- 2023.01.16
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The VAO class
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   VertexArray.cpp
+ * \brief  VertexArray class, wrapping opengl vertex array obeject
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "pch.h"
 #include "VertexArray.h"

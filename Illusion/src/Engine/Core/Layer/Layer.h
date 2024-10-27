@@ -1,13 +1,12 @@
-/*
- * ======================= Layer.h ===========================
- *						  -- ils --
- *                                         CREATE -- 2023.01.13
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The abstract Layer class
- * ----------------------------
- */
 #pragma once
+
+/*****************************************************************//**
+ * \file   Layer.h
+ * \brief  The abstract Layer class
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Core/Core.h"
 #include "Engine/Event/Events.h"

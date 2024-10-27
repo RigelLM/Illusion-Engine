@@ -1,15 +1,12 @@
-/*
- * ========================== Engine.h ============================
- *                           -- ils --
- *                                              CREATE -- 2023.01.12
- *                                              MODIFY --
- * -----------------------------------------------------------------
- * The total including file for the application
- * header file that connects the Engine and the Game
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   Engine.h
+ * \brief  Including all nessesary header files of the engine
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 // For use in applications
 #include "Engine/Core/Application/Application.h"
@@ -17,7 +14,6 @@
 #include "Engine/Core/Layer/Layer.h"
 
 #include "Engine/Core/Utils/Timestep.h"
-#include "Engine/Core/Utils/Timer.h"
 
 #include "Engine/Core/Input/Input.h"
 #include "Engine/Core/Input/KeyCode.h"

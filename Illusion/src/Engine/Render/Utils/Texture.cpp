@@ -1,12 +1,10 @@
-/*
- * ===================== Texture.cpp ====================
- *                       -- ils --
- *                                   CREATE -- 2023.01.20
- *                                   MODIFY --
- * ------------------------------------------------------
- * The Texture Class
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   Texture.cpp
+ * \brief  Texture class, supporting render object with textures
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "pch.h"
 #include "Texture.h"

@@ -1,13 +1,10 @@
-/*
- * ===================== Buffers.cpp ==========================
- *                       -- ils --
- *                                         CREATE -- 2023.01.14
- *                                         MODIFY --
- * ------------------------------------------------------------
- * The buffer classes
- * VBO and EBO
- * ----------------------------
- */
+/*****************************************************************//**
+ * \file   Buffers.cpp
+ * \brief  Buffer classes, wrapping opengl buffer objects
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "pch.h"
 #include "Buffers.h"

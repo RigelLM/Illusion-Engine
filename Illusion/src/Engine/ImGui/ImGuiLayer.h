@@ -1,15 +1,13 @@
-/*
- * ======================= ImGuiLayer.h ===========================
- *						     -- ils --
- *												CREATE -- 2023.01.13
- *												MODIFY --
- * ----------------------------------------------------------------
- * The ImGuiLayer Class that stores all the render logic
- * for the overlay layer
- * ----------------------------
- */
-
 #pragma once
+
+/*****************************************************************//**
+ * \file   ImGuiLayer.h
+ * \brief  ImGuiLayer class, stores all the render logic for
+ * overlay layers
+ * 
+ * \author Mian Li
+ * \date   January 2023
+ *********************************************************************/
 
 #include "Engine/Core/Layer/Layer.h"
 

@@ -1,4 +1,12 @@
-#pragma once
+﻿#pragma once
+
+/*****************************************************************//**
+ * \file   Script.h
+ * \brief  Script class for native scripting
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
 
 #include "Entity.h"
 

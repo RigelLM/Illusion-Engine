@@ -1,5 +1,13 @@
 #pragma once
 
+/*****************************************************************//**
+ * \file   Camera.h
+ * \brief  Internal camera class, intergrating perspective and orthographic into one class
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
 #include <glm/glm.hpp>
 #include <Engine/Core/Application/Application.h>
 
@@ -97,10 +105,12 @@ namespace Illusion
 		OrthographicProperties m_OrthographicProp;
 		PerspectiveProperties m_PerspectiveProp;
 
+		// Default camera is orthographic camera
 		CameraType m_CameraType = CameraType::Orthographic;
 
 		float m_AspectRatio;
 
+		// Camera has its own position other than the entity's position
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		glm::mat4 m_View;

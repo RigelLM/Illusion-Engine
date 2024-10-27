@@ -1,5 +1,14 @@
 #pragma once
 
+/*****************************************************************//**
+ * \file   MouseCode.h
+ * \brief  Defines all Mouse button codes, wrapping all glfw mousecodes
+ * 
+ * \author Mian Li
+ * \date   October 2024
+ *********************************************************************/
+
+
 namespace Illusion
 {
 	using MouseCode = uint16_t;
