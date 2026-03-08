@@ -43,6 +43,11 @@ namespace Illusion
 		m_Registry.destroy(entity);
 	}
 
+
+	// TODO: Move scene out from render traversal
+	// scene updates ECS data
+	// render system / scene renderer reads renderable
+	// scene renderer decides to go 2D pass, shadow pass, UI pass, or selection pass, etc.
 	void Scene::OnUpdate(Timestep ts)
 	{
 		// Update scripts

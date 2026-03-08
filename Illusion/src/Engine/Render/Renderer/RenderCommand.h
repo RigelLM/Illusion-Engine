@@ -8,6 +8,10 @@
  * \date   January 2023
  *********************************************************************/
 
+ // TODO: To be extended
+ // Make this a RHI layer
+ // state cache, command list, pipeline state, resource binding rules
+
 #include <glm/glm.hpp>
 
 #include "Engine/Render/Utils/VertexArray.h"

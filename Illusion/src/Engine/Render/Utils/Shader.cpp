@@ -159,6 +159,7 @@ namespace Illusion
 		return m_Name;
 	}
 
+	// TODO: should be caching uniform location
 	void Shader::UploadUniformMat4(const std::string& name, const glm::mat4& value)
 	{
 		glUniformMatrix4fv(glGetUniformLocation(m_Program, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));

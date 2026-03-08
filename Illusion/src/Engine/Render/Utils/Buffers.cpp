@@ -237,6 +237,7 @@ namespace Illusion
 
 		if (m_ColorAttachments.size() > 1)
 		{
+			// TODO: assertion condition is wrong
 			ILLUSION_CLIENT_ASSERT(m_ColorAttachments.size() > 4, "Attempted to attach more than 4 color attachments");
 
 			GLenum buffers[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };

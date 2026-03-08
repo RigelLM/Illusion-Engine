@@ -46,6 +46,12 @@ namespace Illusion
 		glm::vec4 QuadVertexPositions[4];
 	};
 
+	// TODO: To be extended
+	// renderer context / renderer scene data / pass instance
+	// so it support multiple renderer instances
+	// multple worlds / viewport rendering at the same time
+	// editor game view + scene view double view ports
+	// multi thread submit / render seperation
 	static RendererData s_Data;
 
 	void Renderer2D::Init()
@@ -112,6 +118,11 @@ namespace Illusion
 		for (int i = 0; i < 32; i++)
 			samplers[i] = i;
 
+		// TODO: build a real resource system
+		// char key is not type safe
+		// life cycle is unclear
+		// hard to hot reload and track dependancies
+		// hard to build asset handle / registry
 		// Create the shader program
 		ResourceManager::LoadShader("assets/shaders/TextureShader.glsl", "TextureShader");
 
@@ -190,6 +201,8 @@ namespace Illusion
 		StartBatch();
 	}
 
+
+	// TODO: should be using helpers for all draw functions
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		DrawQuad(glm::vec3(position.x, position.y, 0.0f), size, color);

@@ -66,6 +66,7 @@ namespace Illusion {
 		glBindVertexArray(m_VAO);
 		VBO->Bind();
 
+		// TODO: use glvertexAttribIPointer for integer values
 		// Set up the Vertex Attribute Pointer for each element in the vertices data of VBO
 		uint32_t index = 0;
 		const auto& layout = VBO->GetDataLayout();
@@ -99,6 +100,11 @@ namespace Illusion {
 				uint8_t count = vertexdata.GetComponentCount();
 				for (uint8_t i = 0; i < count; i++)
 				{
+					// TODO: Fix the offset using
+					// glEnableVertexAttribArray is using offset
+					// but glVertexAttribDivisor is not using it
+					// might cause attribute divisor bugs when using
+					// multiple VBOs
 					glEnableVertexAttribArray(index + m_VBOIndexOffset);
 					glVertexAttribPointer(index + m_VBOIndexOffset,
 						count,
