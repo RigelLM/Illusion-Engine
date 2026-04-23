@@ -1,0 +1,13 @@
+# Third-party and archived code should not be reformatted by repo tooling.
+Vendor/**
+Archive/**
+
+# Generated or local build outputs.
+build/**
+install/**
+.cache/**
+
+# IDE / VCS metadata.
+.git/**
+.vs/**
+.vscode/**

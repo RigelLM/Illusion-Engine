@@ -1,0 +1,61 @@
+---
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+
+ColumnLimit: 120
+BreakBeforeBraces: Allman
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+
+IndentCaseLabels: true
+IndentCaseBlocks: false
+
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpaceInEmptyParentheses: false
+SpacesInContainerLiterals: false
+
+SortIncludes: false
+IncludeBlocks: Preserve
+
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignEscapedNewlines: DontAlign
+AlignOperands: Align
+AlignTrailingComments: true
+
+BinPackArguments: false
+BinPackParameters: false
+PackConstructorInitializers: NextLine
+ConstructorInitializerIndentWidth: 4
+
+EmptyLineBeforeAccessModifier: LogicalBlock
+AccessModifierOffset: -4
+
+NamespaceIndentation: None
+FixNamespaceComments: true
+ObjCBinPackProtocolList: Never
+ObjCBlockIndentWidth: 4
+ObjCBreakBeforeNestedBlockParam: true
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+
+Cpp11BracedListStyle: true
+Standard: Latest
+DerivePointerAlignment: false
+ReflowComments: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+SeparateDefinitionBlocks: Leave
+...

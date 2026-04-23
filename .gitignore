@@ -1,0 +1,27 @@
+﻿# Build output
+/build/
+/install/
+/out/
+
+# IDE
+.vs
+.vscode
+*.user
+
+# CMake
+CMakeUserPresets.json
+compile_commands.json
+
+# Runtime writable (user configs, saves, logs, caches)
+Saved
+
+# MSVC artifacts
+*.exe
+*.obj
+*.pdb
+*.ilk
+
+# Python tooling artifacts
+__pycache__/
+*.pyc
+*.pyo
